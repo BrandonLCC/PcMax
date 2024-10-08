@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- Fonts  -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&family=Sawarabi+Gothic&display=swap" rel="stylesheet">
+     
+      <title>Pc max</title>
+      {% load bootstrap5 %}
+      {% bootstrap_css %}
+      {% bootstrap_javascript %}
+      <!-- CSS -->
+      <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">PcMax</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Iniciar sesión</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link active" aria-disabled="true">Registro</a>
+              </li>
+              <!-- Lo ideal es que hayan varias categorias sin olvidar eso  -->
+              <li class="nav-item">
+                <a class="nav-link" href="#">Categorias</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+    <!-- Fin NavBar-->
+
+    <!-- Carrusel -->
+     <!-- CARRUSEL -->
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner ">
+            <div class="carousel-item active">
+            <img src=" {% static './images/HERO-OFICIAL.jpg '%}" class="img-carrusel-carousel d-block w-100" alt="...">
+            <div class="carousel-caption  col-4 me-auto ">
+                <h1>Todo en tecnologia</h1>
+                <p class="parrafo-carrusel">Busca y compra nuestros productos tecnologicos de ultima generacion 100% seguro con envio a todo el mundo</p>
+            </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!--Fin Carrusel-->
+
+    <section class="container-presentacion col-11 mx-auto my-5">
+      <div class ="p-4">
+        <h2>Presentacion</h2>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem culpa explicabo aperiam quisquam neque, magnam a, ut cum, fugit illo quibusdam numquam ratione ipsum consequatur porro corrupti libero eum id.</p>
+        </div>
+        <div class="col-6">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, impedit expedita quas consequuntur non consectetur ipsam iste autem quo explicabo porro odit, vero natus quibusdam. Totam quos quidem excepturi culpa?
+        </div>
+      </div>
+    </section>
+
+    <section class="container-categorias col-11 mx-auto my-5">
+      <div>
+        <h2>Categorias</h2>
+      </div>
+
+    </section>
+    <a href="{% url 'lista_productos' %}">Ver Productos</a>
+
+    
+
+
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+.navbar {
+    background-color:  #ff9a02;
+    color: white;
+}
+
+.carousel {
+  
+}
+
+.nav-link {
+    color: white;
+}
+
+
+h1 {
+    color: #ffffff;
+    text-shadow: 0px 0px 10px #02ff02;
+    
+}
+
+.container-presentacion {
+    background-color: #02ff02;
+    text-align: center;
+    color: white;
+
+}
+
+.container-categorias {
+    background-color: rgb(6, 45, 20);
+    text-align: center;
+    color: white;
+}
+.p-stock {
+
+}
+

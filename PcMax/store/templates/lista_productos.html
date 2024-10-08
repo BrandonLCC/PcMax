@@ -1,0 +1,75 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&family=Sawarabi+Gothic&display=swap" rel="stylesheet">
+    
+    <title>Product List</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/lista_productos.css' %}">
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">PcMax</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/home">Iniciar sesión</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link active" aria-disabled="true">Registro</a>
+              </li>
+              <!-- Lo ideal es que hayan varias categorias sin olvidar eso  -->
+              <li class="nav-item">
+                <a class="nav-link" href="#">Categorias</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+    <!-- Productos -->
+    <div class="container">
+        <h1>Productos</h1>
+        <div class="row">
+            {% for producto in productos %}
+            <div class="col-md-4">
+                <div class="card">
+                    {% if producto.imagen_producto %}
+                    <img src="{{ producto.imagen_producto.url }}" class="card-img-top" alt="{{ producto.nombre_producto }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ producto.nombre_producto }}</h5>
+                        <p class="card-text">{{ producto.descripcion_producto }}</p>
+                        <p class="card-text text-center">${{ producto.precio_producto }}</p>
+                        <p class="card-text p-stock text-center">Stock: {{ producto.cantidad_producto }}</p>
+                        <div>
+                            <a href="">Detalles</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
