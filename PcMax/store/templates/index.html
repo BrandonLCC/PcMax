@@ -15,7 +15,7 @@
       {% bootstrap_css %}
       {% bootstrap_javascript %}
       <!-- CSS -->
-      <link rel="stylesheet" href="{% static 'css/style.css' %}">
+      <link rel="stylesheet" href="{% static 'css/stylei.css' %}">
 
 </head>
 <body>
@@ -36,15 +36,26 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-disabled="true">Registro</a>
               </li>
+              
               <!-- Lo ideal es que hayan varias categorias sin olvidar eso  -->
               <li class="nav-item">
                 <a class="nav-link" href="#">Categorias</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-disabled="true">Ayuda</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-disabled="true">(icon carro)</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-disabled="true">historial</a>
+              </li>
+              <form class="from-buscar d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Buscar un Producto" aria-label="Search">
+                <button class="btn btn-buscar" type="submit">Buscar</button>
+              </form>
             </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            
           </div>
         </div>
       </nav>
@@ -66,31 +77,104 @@
     </div>
 
     <!--Fin Carrusel-->
+    <!--menu de opciones secundario -->
 
-    <section class="container-presentacion col-11 mx-auto my-5">
-      <div class ="p-4">
-        <h2>Presentacion</h2>
-      </div>
-      <div class="row">
-        <div class="col-6">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem culpa explicabo aperiam quisquam neque, magnam a, ut cum, fugit illo quibusdam numquam ratione ipsum consequatur porro corrupti libero eum id.</p>
-        </div>
-        <div class="col-6">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, impedit expedita quas consequuntur non consectetur ipsam iste autem quo explicabo porro odit, vero natus quibusdam. Totam quos quidem excepturi culpa?
-        </div>
-      </div>
+    <section class="seccion-crear-cuenta col-11 mx-auto my-5 ">
+      <h4>olvides tu cuenta</h4>
+        <button>Inicio de sesion</button>
+        <button>Registro sesion</button>
     </section>
 
+   <section class="seccion-crear-cuenta col-11 mx-auto my-5 ">
+    <h4>productos</h4>
+      <p>Lo ideal ojala sea tipo slider para deslizar y ver los productos</p>
+  </section>
+
+    <!--Seccion categorias-->
     <section class="container-categorias col-11 mx-auto my-5">
       <div>
-        <h2>Categorias</h2>
+        <div class="titulo-div">
+          <h2>Productos por categorias</h2>
+        </div>
+        <div class="links-categorias">
+          <a href="{% url 'lista_productos' %}">
+            <img src="{% static './images/HERO-OFICIAL.jpg '%}" class="col-12 card-img-categoria" alt="...">
+            
+          </a>
+          <a class="link-a-catego" href="{% url 'lista_productos' %}">
+              <img src="{% static './images/HERO-OFICIAL.jpg '%}" class="col-12 card-img-categoria" alt="...">
+
+          </a>
+        
+          <a href="{% url 'lista_productos' %}">
+            <img src="{% static './images/HERO-OFICIAL.jpg '%}" class="col-12 card-img-categoria" alt="...">
+          </a>
+          <div>
+            
+          </div>
+        </div>
       </div>
-
     </section>
-    <a href="{% url 'lista_productos' %}">Ver Productos</a>
 
-    
+    <!--Seccion categorias-->
+    <section class="container-categorias col-11 mx-auto my-5">
+      <div>
+        <div class="titulo-div">
+          <h2>Busca tus productos por marcas (asus, ACER, HP)</h2>
+        </div>
+        <p>Buscar los productos por marca, similar a las categorias</p>
+        <p>las marcas no estan definidos en la base de datos</p>
+    </section>
 
+
+    <section class="seccion-crear-cuenta col-11 mx-auto my-5 ">
+      <h4>ofertas y descuentos</h4>
+        <p>descuentos</p>
+    </section>
+
+    <section class="seccion-crear-cuenta col-11 mx-auto my-5 ">
+      <h4>ayuda</h4>
+        <button>ayuda 1</button>
+        <button>ayuda 2</button>
+        <button>formulario</button>
+    </section>
+
+      <section class="seccion-crear-cuenta col-11 mx-auto my-5 ">
+        <h4>Te garantizamos</h4>
+          <p>envios rapidos</p>
+          <p>seguridad</p>
+          <p>servicio 24 horas</p>
+      </section>
+
+        <section class="seccion-crear-cuenta col-11 mx-auto my-5 ">
+          PUBLICIDAD
+        </section>
+        
+        <section class="seccion-crear-cuenta col-11 mx-auto my-5 ">
+          Metodos de pagos
+        </section>
+
+        <section class="seccion-crear-cuenta col-11 mx-auto my-5 ">
+          <p>encuentranos en </p>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo velit, fugiat deleniti dolorum quasi atque numquam mollitia iste? Numquam odit aliquam dolores culpa expedita, tempora amet ipsam non blanditiis perferendis!</p>
+          <p>reconocodimos por nuestros clientes</p>
+        </section>
+
+        <!-- REQUERIMIENTO NO DEFINIDO-->
+        <section class="seccion-crear-cuenta col-11 mx-auto my-5 ">
+          <h2>a quien no le gustaria un regalo?</h2>
+
+          <p>Premio al mejor cliente  (requerimineto no definido)</p>
+          <p>aqui se premiara y se reconocera a los clientes mas frecuentes</p>
+          <p>utilizando django y la base de datos se podra reconocer a los clientes que han tenido la mayor cantidad de compras</p>
+          <p>incentivando a los clientes a posibles premios aleatorios que ofrece la empresa</p>
+        
+          <p>tambien el profesor dijo que se puede crear un cupon para la siguente compra</p>
+        </section>
+        
+    <footer>
+      <p>footer</p>
+    </footer>
 
 
 </body>

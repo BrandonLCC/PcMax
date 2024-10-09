@@ -1,0 +1,131 @@
+:root {
+    --color-blanco: #ffffff;
+    --color-1-empresa: #02ff02;
+}
+
+.navbar {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+
+.navbar-nav {
+    display: flex;
+    /*ayudara a centrar los links */
+    width: 100%; 
+    justify-content: center; 
+    align-items: center;
+    
+}
+
+.nav-link {
+    padding: 10px;
+    color: var(--color-blanco);
+  
+}
+
+/* link de Pcmax */
+.navbar-brand {
+    font-weight: 550;
+    color: var(--color-blanco);
+
+}
+
+.nav-link:hover, .navbar-brand:hover {
+    background-color: #02ff020f;
+    color: var(--color-1-empresa);
+    border-radius: 10px;
+    animation-delay: 2s;
+    cursor: default;
+}
+
+/* input */
+.form-control {
+    margin-left: auto;
+    background-color: #15c01500;
+    border-color: var(--color-1-empresa);
+    animation:  box-producto 5s ease forwards;
+    animation-iteration-count: infinite;
+    margin-left: 5px;
+}
+
+@keyframes box-producto {
+    0% {
+        border-color: var(--color-1-empresa);
+    }
+    50% {
+        border-color: #000000;
+    }
+    0% {
+        border-color: var(--color-1-empresa);
+    }
+}
+
+/* Boton buscar */
+.btn-buscar {
+    background: linear-gradient(85deg, #44ff44, #fff200); /* Doble color */
+    font-weight: 550;
+    color: var(--color-blanco);
+}
+
+.btn-buscar:hover {
+   box-shadow: 0px 0px 100px 2px #9cff8d;
+   animation-duration: 2s;
+   color: #175317;
+}
+
+/* fin navbar */
+/* Carrusel */
+.img-carrusel-carousel {
+    position: relative;
+    height: 640px;
+}
+
+
+h1 {
+    color:var(--color-blanco);
+    text-shadow: 0px 0px 10px --color-1-empresa;
+    
+}
+
+.seccion-crear-cuenta {
+    background-color: #d3d3d3;
+}
+
+.container-presentacion {
+    background-color: var(--color-1-empresa);
+    text-align: center;
+    color: var(--color-blanco);
+    border-radius: 15px;
+
+
+}
+
+.container-categorias {
+    background-color: rgb(6, 45, 20);
+    text-align: center;
+    color: var(--color-blanco);
+    border-radius: 5px;
+}
+
+.titulo-div {
+    
+}
+
+
+.links-categorias {
+    position: relative;
+    display: flex;
+   
+}
+
+.texto-categoria {
+    position: absolute;
+    text-align: center;
+    background-color: darkblue;
+}
+
+.p-stock {
+
+}
+
