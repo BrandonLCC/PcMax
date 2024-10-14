@@ -1,7 +1,7 @@
 from django.db import models
 
 #En esta pagina se creara el modelo del proyecto 
-
+ 
 #Modelo 1: producto
 class Producto(models.Model):
     nombre_producto = models.CharField(max_length = 50)
@@ -12,6 +12,13 @@ class Producto(models.Model):
     #Definir la carpeta de productos
     imagen_producto = models.ImageField(upload_to='producto/', null=True, blank=True)
     id_categoria_producto = models.IntegerField() 
-    
+
+class Contacto(models.Model):
+    nombre = models.CharField(max_length=100)
+    email = models.EmailField()
+    mensaje = models.TextField()
+    mensaje_cifrado = models.TextField()
+    fecha = models.DateTimeField(auto_now_add=True) 
+
 def __str__(self):
     return self.nombre_producto  

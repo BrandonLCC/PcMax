@@ -1,0 +1,122 @@
+:root {
+    /* Aqui  se definen los colores de la empresa PCmax */
+    --color-blanco: #ffffff;
+    --color-1-empresa: #02ff02;
+    --color-2-empresa: #000000;
+}
+
+* {
+    margin: 0;
+}
+.navbar {
+    background-color: var(--color-2-empresa);
+    width: 100%;
+    z-index: 1;
+}
+
+.navbar-nav {
+    display: flex;
+    /*ayudara a centrar los links */
+    width: 100%; 
+    justify-content: center; 
+    align-items: center;
+    
+}
+
+.nav-link {
+    padding: 10px;
+    color: var(--color-blanco);
+  
+}
+
+/* link de Pcmax */
+.navbar-brand {
+    font-weight: 550;
+    color: var(--color-blanco);
+
+}
+
+.nav-link:hover, .navbar-brand:hover {
+    background-color: #02ff020f;
+    color: var(--color-1-empresa);
+    border-radius: 10px;
+    animation-delay: 2s;
+    cursor: default;
+}
+
+.logo-PcMax {
+    position: relative;
+    width: 82px;
+    height: 70px;
+}
+
+/* input */
+.form-control {
+    margin-left: auto;
+    background-color: #15c01500;
+    border-color: var(--color-1-empresa);
+    margin-left: 5px;
+}
+
+/* Boton buscar */
+.btn-buscar {
+    background: linear-gradient(85deg, #44ff44, #fff200); /* Doble color */
+    font-weight: 550;
+    color: var(--color-blanco);
+
+}
+
+.btn-buscar:hover {
+   animation-duration: 2s;
+   color: #175317;
+   z-index: 5;
+}
+
+/* fin navbar */
+
+/* link de Pcmax */
+.navbar-brand {
+    font-weight: 550;
+    color: var(--color-blanco);
+
+}
+
+.nav-link:hover, .navbar-brand:hover {
+    background-color: #02ff020f;
+    color: var(--color-1-empresa);
+    border-radius: 10px;
+    animation-delay: 2s;
+    cursor: default;
+}
+
+.logo-PcMax {
+    position: relative;
+    width: 82px;
+    height: 70px;
+}
+
+
+/* formulario */
+
+.seccion-formulario {
+    margin: 0;
+}
+
+.img-formulario {
+    height: 100%;
+}
+
+.div-formulario {
+    background-color: var(--color-1-empresa);
+    color: var(--color-2-empresa);
+    
+}
+
+.subtitulo-formulario {
+    color: var(--color-2-empresa);
+}
+
+label {
+    color: var(--color-2-empresa)
+
+}

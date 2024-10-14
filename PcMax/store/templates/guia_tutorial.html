@@ -15,7 +15,7 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'css/lista_productot.css' %}">
+    <link rel="stylesheet" href="{% static 'css/guia_tutorial.css' %}">
 
 </head>
 <body>
@@ -63,30 +63,9 @@
     </div>
   </nav>
 <!-- Fin NavBar-->
-    <!-- Productos -->
-    <div class="container">
-        <h1>Productos</h1>
-        <p> volver > </p>
-        <div class="row">
-            {% for producto in productos %}
-            <div class="col-md-4">
-                <div class="card">
-                    {% if producto.imagen_producto %}
-                    <img src="{{ producto.imagen_producto.url }}" class="card-img-top" alt="{{ producto.nombre_producto }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title text-center pb-1">{{ producto.nombre_producto }}</h5>
-                        <p class="card-text text-center">{{ producto.descripcion_producto }}</p>
-                        <p class="card-text text-center">${{ producto.precio_producto }}</p>
-                        <p class="stock-productos card-text col-5 mx-auto text-center py-1"><b class="text-unidades">Unidades: </b>{{ producto.cantidad_producto }}</p>
-                        <div class="div-boton mx-auto">
-                            <a class="btn-link-a px-5" href="">Ver producto</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
+  
+    <section>
+        <h1>guias y tutoriales</h1>
+    </section>
 </body>
 </html>

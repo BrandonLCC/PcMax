@@ -15,7 +15,7 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'css/lista_productot.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contacto_cliii.css' %}">
 
 </head>
 <body>
@@ -63,30 +63,39 @@
     </div>
   </nav>
 <!-- Fin NavBar-->
-    <!-- Productos -->
-    <div class="container">
-        <h1>Productos</h1>
-        <p> volver > </p>
-        <div class="row">
-            {% for producto in productos %}
-            <div class="col-md-4">
-                <div class="card">
-                    {% if producto.imagen_producto %}
-                    <img src="{{ producto.imagen_producto.url }}" class="card-img-top" alt="{{ producto.nombre_producto }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title text-center pb-1">{{ producto.nombre_producto }}</h5>
-                        <p class="card-text text-center">{{ producto.descripcion_producto }}</p>
-                        <p class="card-text text-center">${{ producto.precio_producto }}</p>
-                        <p class="stock-productos card-text col-5 mx-auto text-center py-1"><b class="text-unidades">Unidades: </b>{{ producto.cantidad_producto }}</p>
-                        <div class="div-boton mx-auto">
-                            <a class="btn-link-a px-5" href="">Ver producto</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
+ 
+<section class="seccion-formulario col-12 mx-auto">
+  <div class="d-flex">
+    <div class="div-img col-6">
+      <img src="{% static './images/publicidad-3.jpg '%}" class="img-formulario col-12 " alt="...">
     </div>
+    <div class="div-formulario col-5 mx-auto">
+      <h2 class="text-center">Contáctanos</h2>
+      <p  class = "subtitulo-formulario p-2 text-center" id = "validar">Puedes escribirme directamente  por correo electronico en este formulario para mantenernos en contacto</p>
+      <form id="miFormulario" class="text-light m-2 mx-3 py-3 "  action = "{% url 'contacto_cliente' %}" method="POST"> <!--action="https://formsubmit.co/ecd140b5d5b1a3deb8ffe5ca7be23196"-->
+        {% csrf_token %}
+            <!-- Nombre usuario -->
+        <div class="mb-2 px-5" id="divNombre">
+            <label class="my-2 col-12 p-1 text-center" for="nombre">Nombre</label>
+            <input id="nombre" name="name" type="text" class="form-control">
+        </div>
+        <!-- Gmail usuario -->
+        <div class="mb-2 px-5">
+            <label for="correo" class="form-label col-12 p-1 text-center">Correo electrónico</label>
+            <input id="correo" name="email" type="email" class="form-control" placeholder="nombre@gmail.com">
+        </div>
+        <!-- Text-area usuario -->
+        <div class="px-5">
+            <label for="mensaje" class="form-label col-12 p-1 text-center">Mensaje</label>
+            <textarea class="form-control" id="mensaje" name="message" placeholder="Escríbeme..." rows="4"></textarea>
+        </div>
+        <!-- Para enviar los datos del formulario -->
+        <div class="botonEnviar text-center ">
+            <input class="boton-diseno px-5 py-2 " type="submit" value="Enviar" id="enviar">
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
 </body>
 </html>
