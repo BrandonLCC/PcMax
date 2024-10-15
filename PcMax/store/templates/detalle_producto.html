@@ -9,15 +9,115 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&family=Sawarabi+Gothic&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Detalle del producto</title>
     {% load bootstrap5 %}
     {% bootstrap_css %}
-    {% bootstrap_javascript %}
-    <link rel="stylesheet" href="{% static 'css/detalle_productos.css' %}">
+   
+    <link rel="stylesheet" href="{% static 'css/detalless_productos.css' %}">
 
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #000000;">
+        <div>
+          <img src=" {% static './images/logo-empresa.jpg '%}"  class="logo-PcMax ms-3" alt="...">
+        </div>
+          <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
     
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Iniciar sesión</a>
+                </li>
+                
+                <li class="nav-item">
+                  <a class="nav-link active" aria-disabled="true">Registro</a>
+                </li>
+               
+                <li class="nav-item">
+                  <a class="nav-link active" aria-disabled="true">historial</a>
+                </li>
+                <!-- DROP CATEGORIAS-->
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Categorias</a>
+                  <ul class="dropdown-menu">
+                    
+                    <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria_producto=1">Laptops</a></li>
+                    <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria_producto=2">PC gamers</a></li>
+                    <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria_producto=3">Celulares</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Todos los productos</a></li>
+                  </uli><a class="dropdown-item" href="{% url 'contacto_cliente' %}">Contactanos</a></li>
+                    <li><a class="dropdown-item" href="{% url 'guia_tutorial' %}">Guías y tutoriales</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Ayuda</a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{% url 'contacto_cliente' %}">Contactanos</a></li>
+                      <li><a class="dropdown-item" href="{% url 'guia_tutorial' %}">Guías y tutoriales</a></li>
+                    </ul>
+                  </li>
+                <li class="nav-item">
+                  <a href="{% url 'carro_compra' %}"><i class="fa-solid fa-cart-shopping"></i></a>
+                 
+                </li>
+                
+                <form class="from-buscar d-flex" role="search">
+                  <input class="form-control me-2"  type="search" placeholder="Buscar un Producto" aria-label="Search">
+                  <button class="btn btn-buscar " style="background: linear-gradient(85deg, #44ff44, #fff200);" type="submit">Buscar</button>
+                </form>
+              </ul>
+            </div>
+          </div>
+      </nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page"></li>
+    </ol>
+    <div class="container con_detalle py-5">
+        <h1 class="my-4 text-center">{{ producto.nombre }}</h1>
+        <div class="row">
+            <div class="col-md-6">
+               
+               <img src="{{ producto.imagen_producto.url }}" class="card-img-top" alt="{{ producto.nombre_producto }}">
+
+            </div>
+            <div class="col-md-6">
+                <br></br>
+                <h2>{{ producto.nombre_producto  }}</h2>
+                <p class="precio">Precio: ${{ producto.precio_producto }}</p>
+                <p class="stockk">Stock: {{ producto.cantidad_producto }}</p>      
+                
+
+                <!-- Mostrar mensajes de error -->
+                {% if messages %}
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                            {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                <!-- Formulario para agregar al carrito -->
+                <form action="{% url 'agregar_al_carrito' producto.id %}" method="post" class="mt-3 py-5">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Agregar al Carrito</button>
+                </form>
+                
+            </div>
+            <h3 class="text-center ">Descripción:</h3>
+            <p class="categoria py-5">{{ producto.descripcion_producto }}</p>
+        </div>
+    </div>
+    
+
+
+    {% bootstrap_javascript %}
 </body>
 </html>

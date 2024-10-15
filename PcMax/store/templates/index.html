@@ -9,7 +9,7 @@
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&family=Sawarabi+Gothic&display=swap" rel="stylesheet">
-     
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
       <title>Pc max</title>
       {% load bootstrap5 %}
       {% bootstrap_css %}
@@ -39,11 +39,7 @@
             <li class="nav-item">
               <a class="nav-link active" aria-disabled="true">Registro</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-disabled="true">
-                (icon carro)
-              </a>
-            </li>
+           
             <li class="nav-item">
               <a class="nav-link active" aria-disabled="true">historial</a>
             </li>
@@ -51,6 +47,7 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Categorias</a>
               <ul class="dropdown-menu">
+                
                 <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria_producto=1">Laptops</a></li>
                 <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria_producto=2">PC gamers</a></li>
                 <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria_producto=3">Celulares</a></li>
@@ -65,6 +62,10 @@
                 <li><a class="dropdown-item" href="{% url 'contacto_cliente' %}">Contactanos</a></li>
                 <li><a class="dropdown-item" href="{% url 'guia_tutorial' %}">Guías y tutoriales</a></li>
               </ul>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'carro_compra' %}"><i class="fa-solid fa-cart-shopping"></i></a>
+             
             </li>
             <form class="from-buscar d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="Buscar un Producto" aria-label="Search">
@@ -91,33 +92,30 @@
   <br class="col-10 mx-auto">
 
   <!-- PRODUCTOS  -->
+
+
   <section class="seccion-productos col-11 col-sm-11 col-md-11  mx-auto my-5">
     <h2 class="titulo-producto py-2 ps-5">Nuevos productos</h2>
     <p class="subtitulo-producto py-1 ps-5">Hechale un nuevo visto a los productos de tu interes</p>
       <div class="div-orden-productos row">
-          {% for producto in productos %}
-          <div class="col-6 col-sm-6 col-md-4 col-xl-3 mx-auto">
-              <div class="card mx-auto">
-                  {% if producto.imagen_producto %}
-                  <img src="{{ producto.imagen_producto.url }}" class="card-img-top" alt="{{ producto.nombre_producto }}">
-                  {% endif %}
-                  <div class="card-body">
-                      <h5 class="card-title text-center">{{ producto.nombre_producto }}</h5>
-                      <p class="card-id-producto">Cat: {{ producto.id_categoria_producto }}</p>
-                      <div>
-                        <p class="card-text text-center">{{ producto.descripcion_producto }}</p>
-                        <p class="card-text-precio ms-2">${{ producto.precio_producto }}</p>
-                        <p class="card-text-precio-2 ms-2">Precio actual</p>
-                        <p class="card-text-desc ms-2 mt-4">${{ producto.precio_producto }}</p>
-                        <p class="card-text-desc-2 ms-2">Antes</p>
-                      </div>
-                      <div class="div-boton mx-auto">
-                        <a class="btn-link-a px-2" href="">Ver producto</a>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          {% endfor %}
+        {% for producto in productos %}
+        <div class="col-md-4">
+            <div class="card">
+                {% if producto.imagen_producto %}
+                <img src="{{ producto.imagen_producto.url }}" class="card-img-top" alt="{{ producto.nombre_producto }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title text-center pb-1">{{ producto.nombre_producto }}</h5>
+                    <p class="card-text text-center">{{ producto.descripcion_producto }}</p>
+                    <p class="card-text text-center">${{ producto.precio_producto }}</p>
+                    <p class="stock-productos card-text col-5 mx-auto text-center py-1"><b class="text-unidades">Unidades: </b>{{ producto.cantidad_producto }}</p>
+                    <div class="div-boton mx-auto">
+                        <a class="btn-link-a px-5" href="{% url 'detalle_producto' producto.id %}">Ver producto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
         </div>
   </section>
 

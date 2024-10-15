@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap5',
     'store',
+    'jazzmin',
+    
 ]
 
 MIDDLEWARE = [
@@ -105,13 +107,21 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'UTC'
+
+USE_I10N = True
 
 USE_I18N = True
 
 USE_TZ = True
+
+LANGUAGE =[
+    ('es', 'español'),
+    ('en', 'English'),
+    
+    ]
 
 
 # Static files (CSS, JavaScript, Images)
@@ -124,6 +134,51 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Configuración de Jazzmin
+
+JAZZMIN_SETTINGS = {
+
+  "site_title": "Pcmax", # Título del sitio que aparece en la pestaña del navegador.
+
+  "site_header": "Panel de Administrador", # Encabezado del sitio en el panel de administración.
+
+  #titulo de login al regresar a la pagina de login
+    "site_login": "Iniciar Sesión",
+   
+  "site_brand": "Panel de Administrador", # Marca o nombre del sitio que aparece en la barra de navegación.
+
+    #logo de la tienda
+    "site_logo": "images/logo-empresa.jpg",
+
+  
+
+  "welcome_sign": "Bienvenido ", # Mensaje de bienvenida que aparece en la página de inicio de sesión.
+
+  "search_model": "auth.User", # Modelo utilizado para la búsqueda global en el panel de administración.
+
+  "show_sidebar": True, # Muestra la barra lateral del menú.
+
+  "navigation_expanded": True, # Expande la navegación por defecto.
+
+  "order_with_respect_to": ["auth", "books", "book.author", "book.book"], # Orden de las aplicaciones y modelos en el menú.
+
+  "icons": { # Iconos para las aplicaciones y modelos específicos.
+
+    "auth": "fas fa-users-cog", # Icono para la aplicación de autenticación.
+
+    "auth.user": "fas fa-user", # Icono para el modelo de usuario.
+
+    "auth.Group": "fas fa-users", # Icono para el modelo de grupos.
+
+  },
+
+  "default_icon_parents": "fas fa-chevron-circle-right", # Icono por defecto para las aplicaciones principales.
+
+  "default_icon_children": "fas fa-circle", # Icono por defecto para los modelos dentro de las aplicaciones.
+
+}
+
+
 import os
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
@@ -132,3 +187,4 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Carpeta para archivos de medios (subidos)
+

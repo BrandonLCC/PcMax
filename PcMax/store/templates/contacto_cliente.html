@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&family=Sawarabi+Gothic&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Product List</title>
     {% load bootstrap5 %}
     {% bootstrap_css %}
@@ -45,13 +45,13 @@
           <li class="nav-item">
             <a class="nav-link active" aria-disabled="true">Ayuda</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-disabled="true">
-              (icon carro)
-            </a>
-          </li>
+       
           <li class="nav-item">
             <a class="nav-link active" aria-disabled="true">historial</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'carro_compra' %}"><i class="fa-solid fa-cart-shopping"></i></a>
+           
           </li>
           <form class="from-buscar d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Buscar un Producto" aria-label="Search">
