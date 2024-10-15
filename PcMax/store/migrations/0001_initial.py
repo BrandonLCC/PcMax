@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('nombre_producto', models.CharField(max_length=50)),
                 ('descripcion_producto', models.TextField()),
-                ('precio_producto', models.DecimalField(decimal_places=2, max_digits=8)),
+                ('precio_producto', models.IntegerField()),
                 ('imagen_producto', models.ImageField(blank=True, null=True, upload_to='productos/')),
             ],
         ),

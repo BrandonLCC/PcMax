@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class Producto(models.Model):
     nombre_producto = models.CharField(max_length = 50)
     descripcion_producto = models.TextField()
-    precio_producto = models.DecimalField(max_digits = 8, decimal_places = 2)
+    precio_producto = models.IntegerField()
     cantidad_producto = models.IntegerField(default=0)  # Proporcionar un valor por defecto
     creacion_producto = models.DateTimeField(auto_now_add=True)
     #Definir la carpeta de productos

@@ -69,7 +69,7 @@
         <p> volver > </p>
         <div class="row">
             {% for producto in productos %}
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card">
                     {% if producto.imagen_producto %}
                     <img src="{{ producto.imagen_producto.url }}" class="card-img-top" alt="{{ producto.nombre_producto }}">
@@ -80,7 +80,7 @@
                         <p class="card-text text-center">${{ producto.precio_producto }}</p>
                         <p class="stock-productos card-text col-5 mx-auto text-center py-1"><b class="text-unidades">Unidades: </b>{{ producto.cantidad_producto }}</p>
                         <div class="div-boton mx-auto">
-                            <a class="btn-link-a px-5" href="{% url 'detalle_producto' producto.id %}">Ver producto</a>
+                            <a class="btn-link-a px-5" href="{% url 'detalle_producto' producto.id %}">Ir al carro</a>
                         </div>
                     </div>
                 </div>

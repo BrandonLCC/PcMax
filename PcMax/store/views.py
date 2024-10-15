@@ -3,8 +3,6 @@ from .models import Producto, Carrito , CarritoProducto as ElementoCarrito
 from django.db import connection
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
-
-
 from .form import CantidadProductoForm, ContactoForm
 
 # Creacion de  las vistas 
@@ -17,11 +15,12 @@ def home(request):
 #Tambien podemos crear views con SQL crudo por ejmplo: select * from
 
 def lista_productos(request):
-    categoria = request.GET.get('id_categoria_producto', '')  # Recibe la categoría por GET
+    categoria = request.GET.get('id_categoria_producto', '')  
     if categoria:
-        productos = Producto.objects.filter(id_categoria_producto=categoria)  # Filtra por categoría
+        productos = Producto.objects.filter(id_categoria_producto=categoria) 
     else:
-        productos = Producto.objects.all()  # Si no hay categoría, muestra todos los productos
+        productos = Producto.objects.all()  
+        
     return render(request, 'lista_productos.html', {'productos': productos})
 
 #Se utilizara una pk para identificar el  id del producto y al seleccionarlo 
@@ -43,8 +42,7 @@ def contacto_cliente(request):
 def guia_tutorial(request):
     return render(request, 'guia_tutorial.html')
 
-def home(request):
-    return render(request, 'index.html')
+
 
 def lista_productos(request):
     productos = Producto.objects.all()
