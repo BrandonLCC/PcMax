@@ -1,3 +1,5 @@
+from django.contrib import messages
+
 from django.shortcuts import render, redirect
 from .models import Producto, Carrito , CarritoProducto as ElementoCarrito
 from django.db import connection
@@ -106,4 +108,30 @@ def carro_compra(request):
 def eliminar_del_carrito(request, elemento_id):
     elemento = get_object_or_404(ElementoCarrito, id=elemento_id)
     elemento.delete()
+    return redirect('carro_compra')
+
+
+#agregar modificar cantidad de stock producto
+
+
+
+def modificar_cantidad_carrito(request, elemento_id):
+    elemento = get_object_or_404(ElementoCarrito, id=elemento_id)
+    if request.method == 'POST':
+        form = CantidadProductoForm(request.POST)
+        if form.is_valid():
+            cantidad = form.cleaned_data['cantidad']
+
+            # Verifica que la cantidad solicitada no exceda el stock disponible
+            if cantidad > elemento.producto.cantidad_producto:
+                messages.error(request, 'La cantidad solicitada excede el stock disponible.')
+            else:
+                elemento.cantidad = cantidad
+                elemento.save()
+                messages.success(request, 'Cantidad actualizada correctamente.')
+                return redirect('carro_compra')
+    else:
+        form = CantidadProductoForm(initial={'cantidad': elemento.cantidad})
+
+    # Si el formulario no es válido, redirige a la misma página del carrito
     return redirect('carro_compra')

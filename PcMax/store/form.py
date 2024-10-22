@@ -24,3 +24,8 @@ class CarritoProductoForm(forms.ModelForm):
 
 class CantidadProductoForm(forms.Form):
     cantidad = forms.IntegerField(min_value=1, initial=1, label='Cantidad')
+
+
+
+class CantidadProductoForm(forms.Form):
+    cantidad = forms.IntegerField(min_value=1, label='Cantidad')

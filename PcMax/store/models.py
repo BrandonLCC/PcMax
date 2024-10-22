@@ -51,3 +51,9 @@ class Contacto(models.Model):
 
 def __str__(self):
     return self.nombre_producto  
+
+
+class ElementoCarrito(models.Model):
+    carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.PositiveIntegerField(default=1)
