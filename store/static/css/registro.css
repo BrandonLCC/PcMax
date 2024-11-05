@@ -1,0 +1,224 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Radio Canada Big", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;
+  }
+  
+  :root {
+    --color-blanco: #ffffff;
+    --color-negro: #000000;
+    --fondo-div-padres: #cfcfcf;
+    --primer-color-empresa: rgb(1, 7, 3);
+    --sub-titulo: #3cf33c;
+    --tercer-color-empresa: #00ff00;
+    --text-shadow-1: #00ff00;
+  }
+  
+  .logo {
+    width: 65px;
+    border-radius: 100%;
+  }
+  
+  /* NAVBAR       */
+  .navbar {
+    background-color: var(--color-negro);
+    color: var(--color-blanco);
+  }
+  
+  .navbar:hover {
+    background-color: #020b02;
+  }
+  
+  .navbar-brand,
+  .nav-link {
+    color: var(--color-blanco);
+    text-align: center;
+  }
+  
+  .navbar-brand:hover,
+  .nav-link:hover {
+    background-color: #031003;
+    text-shadow: 5px 5px 5px 5px var(--text-shadow-1);
+    color: var(--tercer-color-empresa);
+    border-radius: 10px;
+  }
+  
+  .imagen-fondo {
+    position: absolute;
+    filter: blur(1px);
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    display: block;
+    z-index: -1;
+  }
+  
+  /* FORMULARIO */
+  .formulario-padre {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .fromulario-hijo {
+    display: flex;
+  }
+  
+  @media (max-width: 1200px) {
+    .div-1 {
+      display: none;
+    }
+  
+    .titulo {
+      border-top-left-radius: 10px;
+    }
+  
+    form {
+      border-radius: 10px;
+    }
+  }
+  
+  form {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 2px solid var(--color-negro);
+  }
+  
+  .titulo {
+    font-weight: bolder;
+    color: var(--color-blanco);
+    border-top-right-radius: 10px;
+    margin: 0;
+    background-color: var(--color-negro);
+  }
+  
+  .sub-titulo {
+    color: var(--color-negro);
+    background-color: var(--sub-titulo);
+    border-bottom: 2px solid var(--color-negro);
+  }
+  
+  .body-formulario {
+    position: relative;
+    background-color: #f8f8f8;
+    border: 1px solid var(--fondo-div-padres);
+    margin: 0px;
+    text-align: center;
+    margin: 10px;
+    border-radius: 10px;
+    transition: transform 500ms ease;
+    font-weight: bold;
+  }
+  
+  .body-formulario:hover {
+    transform: translateY(-3px);
+    animation-duration: 500ms;
+  }
+  
+  label {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+  }
+  
+  .img-registro {
+    position: relative;
+    display: flex;
+    height: 100%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin: 0;
+    left: 3px;
+    border-top: 1px solid var(--color-negro);
+  }
+  
+  .mensaje-login {
+    position: absolute;
+    top: 30%;
+    left: 26%;
+    transform: translate(-50%, -50%);
+    font-weight: 800;
+    color: var(--color-blanco);
+  }
+  
+  .mensaje-login-2 {
+    position: absolute;
+    top: 36%;
+    left: 26%;
+    transform: translate(-50%, -50%);
+    color: var(--color-blanco);
+  }
+  
+  .link-a-cuenta-creada {
+    position: relative;
+    bottom: 17px;
+    color: #000000;
+  }
+  
+  /* BOTONES */
+  
+  .div-footer-formulario {
+    position: relative;
+    display: flex;
+  }
+  
+  .boton-registro {
+    background-color: var(--tercer-color-empresa);
+    border: 1px solid var(--color-negro);
+    font-weight: bold;
+    color: var(--color-negro);
+    text-decoration: none;
+  }
+  
+  .boton-registro:hover {
+    animation-duration: 500ms;
+    background-color: #24b324;
+    border-radius: 10px;
+    color: var(--color-negro);
+  }
+  
+  .boton-login {
+    position: absolute;
+    top: 50%;
+    left: 26%;
+    transform: translate(-50%, -50%);
+    border: 4px solid var(--color-blanco);
+    border-radius: 50px;
+    text-decoration: none;
+    color: var(--color-blanco);
+    padding: 30px;
+    font-weight: bold;
+  }
+  
+  .boton-login:hover {
+    color: var(--tercer-color-empresa);
+    border-color: var(--tercer-color-empresa);
+    background-color: rgba(0, 0, 0, 0.197);
+  }
+  
+  .boton-home {
+    position: absolute;
+    top: 70%;
+    left: 26%;
+    transform: translate(-50%, -50%);
+    border: 4px solid var(--color-blanco);
+    border-radius: 50px;
+    text-decoration: none;
+    color: var(--color-blanco);
+    padding: 30px;
+    font-weight: bold;
+  }
+  
+  .boton-home:hover {
+    color: var(--tercer-color-empresa);
+    border-color: var(--tercer-color-empresa);
+    background-color: rgba(0, 0, 0, 0.197);
+  }
+  

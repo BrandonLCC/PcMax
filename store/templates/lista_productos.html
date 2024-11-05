@@ -1,0 +1,92 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&family=Sawarabi+Gothic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Product List</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/lista_productot.css' %}">
+
+</head>
+<body>
+ <!-- Navbar -->
+ <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div>
+    <img src=" {% static './images/logo-empresa.jpg '%}" class="logo-PcMax ms-3" alt="...">
+  </div>
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Iniciar sesión</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link active" aria-disabled="true">Registro</a>
+          </li>
+          
+          <!-- Lo ideal es que hayan varias categorias sin olvidar eso  -->
+          <li class="nav-item">
+            <a class="nav-link" href="#">Categorias</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-disabled="true">Ayuda</a>
+          </li>
+        
+          <li class="nav-item">
+            <a class="nav-link active" aria-disabled="true">historial</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'carro_compra' %}"><i class="fa-solid fa-cart-shopping"></i></a>
+           
+          </li>
+          <form class="from-buscar d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Buscar un Producto" aria-label="Search">
+            <button class="btn btn-buscar" type="submit">Buscar</button>
+          </form>
+        </ul>
+        
+      </div>
+    </div>
+  </nav>
+<!-- Fin NavBar-->
+    <!-- Productos -->
+    <div class="container">
+        <h1>Productos</h1>
+        <p> volver > </p>
+        <div class="row">
+            {% for producto in productos %}
+            <div class="col-md-3">
+                <div class="card">
+                    {% if producto.imagen_producto %}
+                    <img src="{{ producto.imagen_producto.url }}" class="card-img-top" alt="{{ producto.nombre_producto }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title text-center pb-1">{{ producto.nombre_producto }}</h5>
+                        <p class="card-text text-center">{{ producto.descripcion_producto|truncatechars:46 }}</p>
+                        <p class="card-text text-center">${{ producto.precio_producto }}</p>
+                        <p class="stock-productos card-text col-6 mx-auto text-center py-1"><b class="text-unidades">Unidades: </b>{{ producto.cantidad_producto }}</p>
+                        <div class="div-boton mx-auto">
+                            <a class="btn-link-a px-5" href="{% url 'detalle_producto' producto.id %}">Ir al carro</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
