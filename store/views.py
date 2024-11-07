@@ -20,7 +20,7 @@ def home(request):
 def lista_productos(request):
     categoria = request.GET.get('id_categoria_producto', '')  
     if categoria:
-        productos = Producto.objects.filter(id_categoria_producto=categoria) 
+        productos = Producto.objects.filter(id_categoria_producto=categoria)#.select_related('id_almacen') 
     else:
         productos = Producto.objects.all()  
         
@@ -28,10 +28,6 @@ def lista_productos(request):
 
 #Se utilizara una pk para identificar el  id del producto y al seleccionarlo 
 ##Llevara a la pagina de detalle
-def detalle_productos(request, pk):
-    productos = get_object_or_404(Producto, pk=pk)
-    return render(request,'detalle_producto.html', {'productos': productos})
-
 
 def contacto_cliente(request):
     if request.method == "POST":
@@ -47,7 +43,7 @@ def guia_tutorial(request):
 
 
 def detalle_productos(request, pk):
-    producto = get_object_or_404(Producto, pk=pk)  # Obtén el producto por su ID
+    producto = get_object_or_404(Producto.objects.select_related('id_almacen').all(), pk=pk)  # Obtén el producto por su ID
     return render(request, 'detalle_producto.html', {'producto': producto})
 
 def carro_compra(request):

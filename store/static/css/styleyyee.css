@@ -262,8 +262,24 @@ h1 {
 .links-categorias {
     position: relative;
     display: flex;
-    
+   
 }
+
+.img-categorias {
+    position: relative;
+    display: block; 
+    width: 100%; 
+    height: 100%;  
+    object-fit: cover; 
+}
+
+.img-hover-cate {
+    position: relative;
+    width: 100%; 
+    height: 300px;  
+    overflow: hidden;  
+}
+
 
 .img-hover-cate:hover {
     transform: scale(1.1); 

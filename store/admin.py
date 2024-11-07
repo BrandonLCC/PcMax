@@ -9,7 +9,8 @@ class ProductAdmin(admin.ModelAdmin):
                     'precio_producto',
                     'cantidad_producto',
                     'creacion_producto', 
-                    'imagen_producto')
+                    'imagen_producto',
+                    'id_almacen',)
     search_fields = ('nombre_producto', 'descripcion_producto')
     list_filter = ('creacion_producto',)
 

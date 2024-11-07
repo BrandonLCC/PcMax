@@ -1,19 +1,37 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-#En esta pagina se creara el modelo del proyecto 
- 
+##Muchos a uno modelos.ForeignKey (publicación, on_delete = modelos.CASCADE)
+#Uno a uno  = modelos.OneToOneField(Estudiante, on_delete=modelos.CASCADE)
+
+class Regiones(models.Model):
+    id_region = models.IntegerField(primary_key=True)
+    nombre_region = models.CharField(max_length=20)
+
+class Comunas(models.Model):
+    id_comuna = models.IntegerField()
+    nombre_comuna = models.CharField(max_length=20)
+    id_region = models.OneToOneField(Regiones, on_delete = models.CASCADE)
+    
+class Almacenes(models.Model):
+    id_almacen = models.IntegerField(primary_key=True) # Agregar primary_key=True si es el identificador principal    nombre_almacen = models.CharField(max_length=50)
+    nombre_almacen = models.CharField(max_length=50)
+    direccion_almacen = models.TextField(max_length=100)
+    id_comuna = models.OneToOneField (Comunas, on_delete = models.CASCADE) #models.CharField(max_length=2)
+    
+    def __str__(self): 
+        return self.nombre_almacen
+
 #Modelo 1: producto
 class Producto(models.Model):
     nombre_producto = models.CharField(max_length = 50)
     descripcion_producto = models.TextField()
     precio_producto = models.IntegerField()
-    cantidad_producto = models.IntegerField(default=0)  # Proporcionar un valor por defecto
+    cantidad_producto = models.IntegerField(default=0)  
     creacion_producto = models.DateTimeField(auto_now_add=True)
-    #Definir la carpeta de productos
     imagen_producto = models.ImageField(upload_to='producto/', null=True, blank=True)
-    id_categoria_producto = models.IntegerField() 
-
+    id_categoria_producto = models.IntegerField()
+    id_almacen = models.ForeignKey(Almacenes, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return self.nombre_producto
@@ -31,8 +49,6 @@ class Carrito(models.Model):
 
     def __str__(self):
         return f"Carrito de {self.usuario.username}"
-
-
  
 class CarritoProducto(models.Model):
     carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE)
@@ -51,15 +67,12 @@ class Contacto(models.Model):
 
 class usuario(models.Model):
     nombre_usuario = models.CharField(max_length=100)
-    gmail_usuario = models.EmailField(max_length=50,default='valorDefecto')
-    contraseña_usuario = models.CharField(max_length=500,default='defecto')
-
-
-def __str__(self):
-    return self.nombre_producto  
-
+    gmail_usuario = models.EmailField(max_length=50,default='')
+    #Encriptar la contraseña    
+    contraseña_usuario = models.CharField(max_length=500,default='')
 
 class ElementoCarrito(models.Model):
     carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.PositiveIntegerField(default=1)
+
