@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
+from .views import CrearOrden
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -16,5 +17,7 @@ urlpatterns = [
     path('carro/modificar/<int:elemento_id>/', views.modificar_cantidad_carrito, name='modificar_cantidad_carrito'),
     path('inicio_sesion/', views.inicio_sesion, name='inicio_sesion'),
     path('registro_cliente/', views.registrar_usuario, name='registro_cliente'),
+    path('compra_producto/', views.compra_producto, name='compra_producto'),
+    path('api/orders', CrearOrden.as_view(), name='crear-orden'),
 
    ]

@@ -52,9 +52,8 @@
 
 .logo-PcMax {
     position: relative;
-    width: 82px;
-    height: 70px;
-
+    width: 75px;
+    height: 65px;
 }
 
 /* input */
@@ -81,18 +80,30 @@
 
 /* Boton buscar */
 .btn-buscar {
-    background: linear-gradient(85deg, #44ff44, #fff200); 
-    font-weight: 550;
+    background: linear-gradient(85deg, #44ff44,#44ff44, #fff200); 
+    font-weight: 650;
     color: var(--color-blanco);
-    box-shadow: 0px 0px 100px 2px #9cff8d;
-
+    
+    
 }
+
 
 .btn-buscar:hover {
    animation-duration: 2s;
    color: #175317;
    z-index: 5;
 }
+
+.link-carro {
+    background: linear-gradient(85deg, #44ff44, #44ff44); 
+    border-radius: 5px;
+}
+
+.link-carro:hover {
+    background: linear-gradient(85deg, #ffffff, #ffffff); 
+
+}
+
 
 /* Carrusel */
 .img-carrusel-carousel {
@@ -178,7 +189,8 @@ h1 {
     font-size: 13px;
     font-weight:bold;
     top: 17px;
-   
+    
+
 }
 
 .card-id-producto_categoria {
@@ -187,7 +199,8 @@ h1 {
     font-size: 13px;
     font-weight:bold;
     bottom: 55px;
-    left: 164px;
+    left: 124px;
+    cursor: default;
 }
 .card-text-precio {
     color: var(--color-rojo);
@@ -200,6 +213,7 @@ h1 {
    color: var(--color-rojo);
    font-weight: bold;
    bottom: 90px; 
+   cursor: default;
 }
 
 .card-text-desc {
@@ -215,6 +229,7 @@ h1 {
     position: absolute;
     bottom: 50px; 
     font-size: 13px;
+    cursor: default;
 
 }
 .div-boton {

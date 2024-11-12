@@ -7,20 +7,24 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .form import CantidadProductoForm, ContactoForm
 from .form import *
+from .functions import generateAccessToken, crearOrden
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
 # Creacion de  las vistas 
 
 def home(request):
-    productos = Producto.objects.all()[:4]
+    productos = Producto.objects.select_related('id_categoria').all()[:4]
     return render(request, 'index.html' ,{'productos': productos})
 
 #Permite mostrar todos los datos usando ORM de forma mas facil: object.all
 #Tambien podemos crear views con SQL crudo por ejmplo: select * from
 
 def lista_productos(request):
-    categoria = request.GET.get('id_categoria_producto', '')  
+    categoria = request.GET.get('id_categoria', '')  
     if categoria:
-        productos = Producto.objects.filter(id_categoria_producto=categoria)#.select_related('id_almacen') 
+        productos = Producto.objects.filter(id_categoria=categoria)#.select_related('id_almacen') 
     else:
         productos = Producto.objects.all()  
         
@@ -85,7 +89,7 @@ def agregar_al_carrito(request, producto_id):
 
     return render(request, 'detalle_producto.html', {'producto': productos, 'form': form})
 
-login_required
+@login_required
 def carro_compra(request):
     carrito = get_object_or_404(Carrito, usuario=request.user)
     elementos = ElementoCarrito.objects.filter(carrito=carrito)
@@ -148,14 +152,30 @@ def inicio_sesion(request):
     return render(request, 'inicio_sesion.html', {'form': form})
 
 def registrar_usuario(request):
-    form = RegistroUsuarioForm()
+    data = {
+        'form': RegistroUsuarioForm()
+    }
 
     if request.method == 'POST':
         form = RegistroUsuarioForm(request.POST)
         if form.is_valid(): 
             form.save()  # Guarda usuario 
-
+            messages.success(request, '¡Registro exitoso!')
+            return redirect(to='home')
         else:
             form = RegistroUsuarioForm()
- 
-    return render(request, 'registro_cliente.html', {'form': form})
+  
+    return render(request, 'registro_cliente.html', data)
+
+
+def compra_producto(request):
+    print("-----")
+    respuesta = generateAccessToken()
+    print(respuesta)
+    return render(request,'compra_producto.html')
+
+#Necesitamos solo la ID  del proden
+class CrearOrden(APIView):
+    def post(self, request):
+        orden = crearOrden('carro_productos')
+        return Response(orden, status=status.HTTP_200_OK)

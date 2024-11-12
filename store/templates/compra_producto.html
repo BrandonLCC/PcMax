@@ -1,0 +1,164 @@
+{% load bootstrap5 %}
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PcMax</title>
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/compra_productoo.css' %}">
+</head>
+<body>
+    <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div>
+      <a href="{% url 'home' %}"> 
+          <img src="{% static './images/logo-empresa.jpg' %}" class="logo-PcMax ms-3" alt="Logo Empresa"> 
+      </a>
+    </div>
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'inicio_sesion' %}">Iniciar sesión</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'registro_cliente' %}">Registro</a>
+            </li>
+           
+            <li class="nav-item">
+              <a class="nav-link active" aria-disabled="true">Historial</a>
+            </li>
+            <!-- DROP CATEGORIAS-->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Categorias</a>
+              <ul class="dropdown-menu">
+                
+                <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria=1">Pc gamer</a></li> 
+                <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria=2">Laptop</a></li> 
+                <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria=3">Celulares                <li><hr class="dropdown-divider"></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Todos los productos</a></li>
+              </ul>
+            </li>
+             <!-- DROP AYUDA -->
+             <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Ayuda</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'contacto_cliente' %}">Contactanos</a></li>
+                <li><a class="dropdown-item" href="{% url 'guia_tutorial' %}">Guías y tutoriales</a></li>
+              </ul>
+            </li>
+            <form class="from-buscar d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Buscar un Producto" aria-label="Search">
+              <button class="btn btn-buscar" type="submit">Buscar</button>
+            </form>
+          </ul>
+        </div>
+      </div>
+  </nav>
+  <!-- Fin navbar-->
+  <meta name="csrf-token" content="{{ csrf_token }}">
+
+  <!-- El scrip identifica el div y crea los botones de paypal -->
+   <form class ="my-5" action="">
+
+   </form>
+  <div id="paypal-button-container">
+  </div>
+  <p id="result-message"></p>
+
+  
+  <!-- INICIALIZAMOS LA SDK DE LA API DE PAYPAL -->
+  <script
+  src="https://www.paypal.com/sdk/js?client-id=test"
+  data-sdk-integration-source="developer-studio">
+  </script>
+  <script src="app.js"></script>
+
+  <!--Esto esta sacado de la documentacion !Adventencia! esto deberia estar en static -->
+  <script type="module">
+    //AQUI ECONTRAMOS LOS BOTONES DE PYPAL 
+    window.paypal
+    .Buttons({
+        style: {
+            shape: "rect",
+            layout: "vertical",
+            color: "gold",
+            label: "paypal",
+        },
+      
+        //Esta funcion espera que hagamos click en el boton y busca en la url que definimos de la api
+        //api/order
+
+        //y de  api/orden activa la funcion de crearOrden para que devuelva el valor orden 
+       
+        async createOrder() {
+            try {
+              const csrfToken = document.querySelector('[name=csrf-token]').content; //Problemas de proteccion
+
+                const response = await fetch("/api/orders", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": csrfToken,  //Problemas de proteccion
+
+                    },
+                    // use the "body" param to optionally pass additional order information
+                    // like product ids and quantities
+                    //Envia algo atravez del fetch
+                    //Aqui podemos enviar los datos del carro de compra
+                    body: JSON.stringify({
+                        cart: [
+                            {
+                              //Aqui deberemos integrar los datos del carro de compra 
+                                id: 1212,
+                              //Cantidad
+                                quantity: 1,
+                            },
+                        ],
+                    }),
+                });
+
+                const orderData = await response.json();
+
+                if (orderData.id) {
+                    return orderData.id;
+                }
+                const errorDetail = orderData?.details?.[0];
+                const errorMessage = errorDetail
+                    ? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
+                    : JSON.stringify(orderData);
+
+                throw new Error(errorMessage);
+            } catch (error) {
+                console.error(error);
+                // resultMessage(`Could not initiate PayPal Checkout...<br><br>${error}`);
+            }
+        } ,
+
+      }//el render que muestra los botones a la interfaz (activa la ID del div)
+  
+    ).render("#paypal-button-container"); 
+
+  </script>
+
+</body>
+</html>
+
+
+  <!--Part 1-->
+  <!-- Esta pagina debe tener inicio sesion -->
+  <!-- Pagina debe pedir inicio sesion -->
+  
+  <!--Part 2-->
+  <!--forms de paypal-->
+  <!-- Traer todos los productos del carro de compra y boton de  finalizar compra-->

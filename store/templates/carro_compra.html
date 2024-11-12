@@ -13,67 +13,75 @@
 
     {% bootstrap_css %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'css/carro_compra.css' %}">
+    <link rel="stylesheet" href="{% static 'css/carro_compraa.css' %}">
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg" style="background-color: #000;">
-        <div>
-            <img src="{% static 'images/logo-empresa.jpg' %}" class="logo-PcMax ms-3" alt="Logo PcMax">
+ <!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div>
+        <a href="{% url 'home' %}"> 
+            <img src="{% static './images/logo-empresa.jpg' %}" class="logo-PcMax ms-3" alt="Logo Empresa"> 
+        </a>
+    </div>
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'inicio_sesion' %}">Iniciar sesión</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'registro_cliente' %}">Registro</a>
+            </li>
+           
+           
+  
+            <li class="nav-item">
+              <a class="nav-link active" aria-disabled="true">Historial</a>
+            </li>
+            <!-- DROP CATEGORIAS-->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Categorias</a>
+              <ul class="dropdown-menu">
+                
+                <li><a class="dropdown-item" href="{% url 'lista_productos' %}?productos.id_producto=Pc gamer">Laptops</a></li>
+                <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria_producto=2">PC gamers</a></li>
+                <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria_producto=3">Celulares</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Todos los productos</a></li>
+              </ul>
+            </li>
+             <!-- DROP AYUDA -->
+             <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Ayuda</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'contacto_cliente' %}">Contactanos</a></li>
+                <li><a class="dropdown-item" href="{% url 'guia_tutorial' %}">Guías y tutoriales</a></li>
+              </ul>
+            </li>
+            <!--Link carro compras -->
+            <li class="nav-item link-carro mx-1">
+              <a class="nav-link active  " href="{% url 'carro_compra' %}"">Carro
+                <i class="fas fa-shopping-cart"></i>
+              </a>
+              
+            </li>
+  
+            <form class="from-buscar d-flex" method="get">
+              <input class="form-control me-2" placeholder="Buscar un Producto" aria-label="Search">
+              <button class="btn btn-buscar px-3 py-2" type="submit">Buscar</button>
+            </form>
+          </ul>
         </div>
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Iniciar sesión</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Registro</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Historial</a>
-                    </li>
-
-                    <!-- Dropdown de Categorías -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Categorías</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria_producto=1">Laptops</a></li>
-                            <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria_producto=2">PC Gamers</a></li>
-                            <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria_producto=3">Celulares</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Todos los productos</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Dropdown de Ayuda -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Ayuda</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'contacto_cliente' %}">Contáctanos</a></li>
-                            <li><a class="dropdown-item" href="{% url 'guia_tutorial' %}">Guías y tutoriales</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- Icono del Carrito -->
-                    <li class="nav-item">
-                        <a href="{% url 'carro_compra' %}"><i class="fa-solid fa-cart-shopping"></i></a>
-                    </li>
-
-                    <!-- Barra de búsqueda -->
-                    <form class="from-buscar d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Buscar un Producto" aria-label="Search">
-                        <button class="btn btn-buscar" style="background: linear-gradient(85deg, #44ff44, #fff200);" type="submit">Buscar</button>
-                    </form>
-                </ul>
-            </div>
-        </div>
-    </nav>
+      </div>
+  </nav>
+  <!-- Fin NavBar-->
 
     
     <br><br><br><br>
@@ -83,7 +91,7 @@
         <h2>Tu Carrito:</h2>
 
         <h3 class="my-4 text-end">
-            <a href="#" class="btn btn-primary">Comprar</a>
+            <a href="/compra_producto" class="btn btn-primary">Comprar</a>
             <span>Total del Carrito: ${{ total_carrito|currency }}</span>
         </h3>
 

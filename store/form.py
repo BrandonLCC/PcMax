@@ -1,7 +1,7 @@
 from django import forms
 from .models import Contacto
 from .models import CarritoProducto
-from .models import usuario
+from .models import Usuario
 
 class ContactoForm(forms.ModelForm):
     class Meta:
@@ -21,7 +21,7 @@ class CarritoProductoForm(forms.ModelForm):
 
 class InicioSesion(forms.ModelForm):
     class Meta:
-        model = usuario  # MODEL ES EL MODELO QUE DEFINIMOS EN LA PAGINA MODEL DONDE OBTENEMOS LOS ATRIBUTOS DE USUARIO
+        model = Usuario  # MODEL ES EL MODELO QUE DEFINIMOS EN LA PAGINA MODEL DONDE OBTENEMOS LOS ATRIBUTOS DE USUARIO
         fields = ['nombre_usuario', 'contraseña_usuario']
         widgets = {
             'nombre_usuario': forms.TextInput(attrs={'class': 'form-control'}),
@@ -30,7 +30,7 @@ class InicioSesion(forms.ModelForm):
 
 class RegistroUsuarioForm(forms.ModelForm):
     class Meta:
-        model = usuario
+        model = Usuario
         fields = ['nombre_usuario', 'gmail_usuario','contraseña_usuario']
         widgets = {
                 'nombre_usuario': forms.TextInput(attrs={'class': 'form-control'}),

@@ -1,0 +1,170 @@
+:root {
+    /* Aqui  se definen los colores de la empresa PCmax */
+    --color-blanco: #ffffff;
+    --color-1-empresa: #02ff02;
+    --color-2-empresa: #000000;
+}
+.navbar {
+    width: 100%;
+    font-weight: 500;
+    z-index: 1;
+    background-color: var(--color-2-empresa);
+}
+
+.navbar-nav {
+    display: flex;
+    /*ayudara a centrar los links */
+    width: 100%; 
+    justify-content: center; 
+    align-items: center;
+    
+}
+
+.nav-link {
+    padding: 10px;
+    color: var(--color-blanco);
+  
+}
+
+/* link de Pcmax */
+.navbar-brand {
+    font-weight: 550;
+    color: var(--color-blanco);
+
+}
+
+.nav-link:hover, .navbar-brand:hover {
+    background-color: #02ff020f;
+    color: var(--color-1-empresa);
+    border-radius: 10px;
+    animation-delay: 2s;
+    cursor: default;
+
+}
+
+.logo-PcMax {
+    position: relative;
+    width: 75px;
+    height: 65px;
+}
+
+/* input */
+.form-control {
+    margin-left: auto;
+    background-color: #15c01500;
+    border-color: var(--color-1-empresa);
+    animation:  box-producto 5s ease forwards;
+    animation-iteration-count: infinite;
+    margin-left: 5px;
+}
+
+@keyframes box-producto {
+    0% {
+        border-color: var(--color-1-empresa);
+    }
+    50% {
+        border-color: #000000;
+    }
+    0% {
+        border-color: var(--color-1-empresa);
+    }
+}
+
+/* Boton buscar */
+.btn-buscar {
+    background: linear-gradient(85deg, #44ff44,#44ff44, #fff200); 
+    font-weight: 650;
+    color: var(--color-blanco);
+    
+    
+}
+
+
+.btn-buscar:hover {
+   animation-duration: 2s;
+   color: #175317;
+   z-index: 5;
+}
+
+.link-carro {
+    background: linear-gradient(85deg, #44ff44, #44ff44); 
+    border-radius: 5px;
+}
+
+.link-carro:hover {
+    background: linear-gradient(85deg, #ffffff, #ffffff); 
+
+}
+
+/* Card de los productos */
+
+
+.card {
+    border: 1px solid black;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    z-index: 2;
+}
+
+.card-body {
+    background-color: var(--color-2-empresa);
+    color: var(--color-blanco);
+    border-radius: 25px 25px 0px 0px;
+
+}
+
+.card-title {
+background-color: var(--color-blanco);
+color: var(--color-2-empresa);
+border-radius: 10px;
+}
+
+.stock-productos {
+    background-color: #02ff0216;
+    animation: stock-color 5s ease ;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    margin-left: 5px;
+
+}
+
+
+
+@keyframes stock-color {
+    0% {
+        color: var(--color-blanco);
+    }
+
+    50% {
+        color: var(--color-1-empresa);
+    }
+    0% {
+        color: var(--color-blanco);
+    }
+}
+
+
+
+.div-boton {
+    position: relative;
+    display: flex; /* Activa el sistema de flexbox */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;
+}
+
+.btn-link-a {
+    background: linear-gradient(85deg, #44ff44, #fff200); 
+    text-decoration: none;
+    font-weight: 550;
+    color: var(--color-blanco);
+    padding: 10px;
+    transition: all 0.3s ease; 
+
+}
+.btn-link-a:hover {
+    background: linear-gradient(85deg,  #fff200,#44ff44); 
+    border-radius: 5px;
+    color: #175317;
+    box-shadow: 0px 0px 100px 2px #9cff8d6e;
+
+}

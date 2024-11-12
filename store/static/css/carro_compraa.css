@@ -8,17 +8,12 @@
     --color-rojo: #ff0202;
 }
 
-.nav{
-
-    background-color: var(--color-2-empresa);
-    width: 100%;
-    z-index: 1;
-}
 .navbar {
-    position: absolute;
     width: 100%;
     font-weight: 500;
     z-index: 1;
+    background-color: var(--color-2-empresa);
+    
 }
 
 .navbar-nav {
@@ -44,32 +39,66 @@
 }
 
 .nav-link:hover, .navbar-brand:hover {
-    background-color: var(--color-2-empresa);
+    background-color: #02ff020f;
     color: var(--color-1-empresa);
     border-radius: 10px;
     animation-delay: 2s;
     cursor: default;
+
 }
 
 .logo-PcMax {
     position: relative;
-    width: 82px;
-    height: 70px;
+    width: 75px;
+    height: 65px;
 }
 
+/* input */
+.form-control {
+    margin-left: auto;
+    background-color: #15c01500;
+    border-color: var(--color-1-empresa);
+    animation:  box-producto 5s ease forwards;
+    animation-iteration-count: infinite;
+    margin-left: 5px;
+}
+
+@keyframes box-producto {
+    0% {
+        border-color: var(--color-1-empresa);
+    }
+    50% {
+        border-color: #000000;
+    }
+    0% {
+        border-color: var(--color-1-empresa);
+    }
+}
+
+/* Boton buscar */
 .btn-buscar {
-    background: linear-gradient(85deg, #44ff44, #fff200); 
-    font-weight: 550;
+    background: linear-gradient(85deg, #44ff44,#44ff44, #fff200); 
+    font-weight: 650;
     color: var(--color-blanco);
-
+    
+    
 }
+
 
 .btn-buscar:hover {
    animation-duration: 2s;
-   box-shadow: 0px 0px 100px 2px #9cff8d6e;
-
    color: #175317;
    z-index: 5;
+}
+
+.link-carro {
+    background: linear-gradient(85deg, #44ff44, #44ff44); 
+    border-radius: 5px;
+}
+
+.link-carro:hover {
+    background: linear-gradient(85deg, #ffffff, #ffffff); 
+
 }
 
 .form-control {
