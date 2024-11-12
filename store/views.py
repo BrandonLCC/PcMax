@@ -174,7 +174,9 @@ def compra_producto(request):
     print(respuesta)
     return render(request,'compra_producto.html')
 
-#Necesitamos solo la ID  del proden
+#Parte 1: integracion y conexion con la API paypal
+#Parte 2: luego se agregara los datos del carro de compras
+#Parte 3: Poder almacenar la compra en la BD
 class CrearOrden(APIView):
     def post(self, request):
         orden = crearOrden('carro_productos')
