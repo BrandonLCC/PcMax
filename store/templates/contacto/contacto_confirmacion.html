@@ -1,0 +1,25 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block head %}
+    <link rel="icon" href="{% static 'images/logo-empresa.jpg' %}">
+    {% bootstrap_css %}
+    <!-- <link rel="stylesheet" href="{% static 'css/confirmacion.css' %}"> -->
+    <title>Mensaje de Confirmación</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5 py-5 confirmation-container">
+        <h3 class="text-center"> <span class="logo">PcMax</span> <span><img src="{% static 'images/logo-empresa.jpg' %}" alt="Logo Zapatería" class="logo-image" style="width: 50px;"  ></span></h3>
+        <h2 class="confirmation-heading text-center">¡Gracias por tu mensaje!</h2>
+        <p class="confirmation-text text-center">Pronto te responderemos.</p>
+      <!-- volver index -->
+        
+        <p class="text-center"> <a href="{% url 'home' %}" class="btn btn-primary">Volver al inicio</a> </p>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {% bootstrap_javascript %}
+{% endblock %}

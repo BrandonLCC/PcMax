@@ -181,3 +181,49 @@ class CrearOrden(APIView):
     def post(self, request):
         orden = crearOrden('carro_productos')
         return Response(orden, status=status.HTTP_200_OK)
+    
+
+#views de contacto
+def contacto_nuevo(request):
+    if request.method == 'POST':
+        form = ContactoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('contacto_confirmacion')
+    else:
+        form = ContactoForm()
+    return render(request, 'contacto/contacto_nuevo.html', {'form': form})
+
+
+@login_required
+def contacto_detalle(request, pk):
+    contacto = get_object_or_404(Contacto, pk=pk)
+    return render(request, 'contacto/contacto_detalle.html', {'contacto': contacto})
+
+@login_required
+def contacto_editar(request, pk):
+    contacto = get_object_or_404(Contacto, pk=pk)
+    if request.method == "POST":
+        form = ContactoForm(request.POST, instance=contacto)
+        if form.is_valid():
+            form.save()
+            return redirect('contacto_detalle', pk=contacto.pk)
+    else:
+        form = ContactoForm(instance=contacto)
+    return render(request, 'contacto/contacto_editar.html', {'form': form})
+
+@login_required
+def contacto_eliminar(request, pk):
+    contacto = get_object_or_404(Contacto, pk=pk)
+    contacto.delete()
+    return redirect('contacto_lista')
+
+@login_required
+def contacto_lista(request):
+    contactos = Contacto.objects.all()
+    return render(request, 'contacto/contacto_lista.html', {'contactos': contactos})
+
+def contacto_confirmacion(request):
+    return render(request, 'contacto/contacto_confirmacion.html')
+    
+

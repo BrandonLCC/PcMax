@@ -1,0 +1,62 @@
+{% extends 'base_generic.html' %}
+{% block head %}
+<title>Contacto</title>
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2>Contacto recibido</h2>
+    <div class="table-responsive">
+        <table class="table table-hover aling-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">asunto</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Mensaje</th>
+                    <th scope="col" class=" text-center">Acciones</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for contacto in contactos %}
+
+                <tr>
+                    <td>
+                        {{contacto.nombre}}
+                    </td>
+                
+                        
+                    <td>
+                        {{contacto.email}}
+
+                    </td>
+                    <td>
+                        {{contacto.mensaje}}
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'contacto_detalle' contacto.pk %}" class="btn btn-secondary">Detalle</a>
+                        <a href="{% url 'contacto_editar' contacto.pk %}" class="btn btn-secondary">Editar</a>
+                        <form method="POST" action="{% url 'contacto_eliminar' contacto.pk %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+     
+        </table>
+        <a href="{% url 'home' %}" class=" btn btn-info">volver</a>
+    
+    </div>
+    
+</div>
+
+{% endblock %}

@@ -69,7 +69,7 @@
   <meta name="csrf-token" content="{{ csrf_token }}">
 
   <!-- El scrip identifica el div y crea los botones de paypal -->
-   <form class ="my-5" action="">
+   <form  class ="my-5 " action="">
 
    </form>
   <div id="paypal-button-container">
@@ -94,6 +94,10 @@
             layout: "vertical",
             color: "gold",
             label: "paypal",
+             height: 40     ,  
+             width: 100,  
+            
+
         },
       
         //Esta funcion espera que hagamos click en el boton y busca en la url que definimos de la api

@@ -1,0 +1,23 @@
+.confirmation-container {
+    margin-top: 50px;
+    padding-top: 50px;
+    text-align: center;
+}
+
+.confirmation-heading {
+    color: #007BFF;
+    font-weight: bold;
+}
+
+.confirmation-text {
+    font-size: 18px;
+    color: #6c757d;
+}
+
+.logo-image {
+    
+    width: 50px ;
+    margin-right: 10px;
+
+}
+

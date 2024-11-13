@@ -22,46 +22,66 @@
  <!-- Navbar -->
  <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div>
-    <img src=" {% static './images/logo-empresa.jpg '%}" class="logo-PcMax ms-3" alt="...">
+      <a href="{% url 'home' %}"> 
+          <img src="{% static './images/logo-empresa.jpg' %}" class="logo-PcMax ms-3" alt="Logo Empresa"> 
+      </a>
   </div>
     <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Iniciar sesión</a>
+            <a class="nav-link active" href="{% url 'inicio_sesion' %}">Iniciar sesión</a>
           </li>
           
           <li class="nav-item">
-            <a class="nav-link active" aria-disabled="true">Registro</a>
+            <a class="nav-link active" href="{% url 'registro_cliente' %}">Registro</a>
           </li>
-          
-          <!-- Lo ideal es que hayan varias categorias sin olvidar eso  -->
+         
+         
+
           <li class="nav-item">
-            <a class="nav-link" href="#">Categorias</a>
+            <a class="nav-link active" aria-disabled="true">Historial</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-disabled="true">Ayuda</a>
+          <!-- DROP CATEGORIAS-->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Categorias</a>
+            <ul class="dropdown-menu">
+              
+              <li><a class="dropdown-item" href="{% url 'lista_productos' %}?productos.id_producto=Pc gamer">Laptops</a></li>
+              <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria_producto=2">PC gamers</a></li>
+              <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria_producto=3">Celulares</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Todos los productos</a></li>
+            </ul>
           </li>
-       
-          <li class="nav-item">
-            <a class="nav-link active" aria-disabled="true">historial</a>
+           <!-- DROP AYUDA -->
+           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Ayuda</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'contacto_cliente' %}">Contactanos</a></li>
+              <li><a class="dropdown-item" href="{% url 'guia_tutorial' %}">Guías y tutoriales</a></li>
+            </ul>
           </li>
-          <li class="nav-item">
-            <a href="{% url 'carro_compra' %}"><i class="fa-solid fa-cart-shopping"></i></a>
-           
+          <!--Link carro compras -->
+          <li class="nav-item link-carro mx-1">
+            <a class="nav-link active  " href="{% url 'carro_compra' %}"">Carro
+              <i class="fas fa-shopping-cart"></i>
+            </a>
+            
           </li>
-          <form class="from-buscar d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Buscar un Producto" aria-label="Search">
-            <button class="btn btn-buscar" type="submit">Buscar</button>
+
+          <form class="from-buscar d-flex" method="get">
+            <input class="form-control me-2" placeholder="Buscar un Producto" aria-label="Search">
+            <button class="btn btn-buscar px-3 py-2" type="submit">Buscar</button>
           </form>
         </ul>
-        
       </div>
     </div>
-  </nav>
+</nav>
 <!-- Fin NavBar-->
  
 <section class="seccion-formulario col-12 mx-auto">
@@ -72,30 +92,28 @@
     <div class="div-formulario col-5 mx-auto">
       <h2 class="text-center">Contáctanos</h2>
       <p  class = "subtitulo-formulario p-2 text-center" id = "validar">Puedes escribirme directamente  por correo electronico en este formulario para mantenernos en contacto</p>
-      <form id="miFormulario" class="text-light m-2 mx-3 py-3 "  action = "{% url 'contacto_cliente' %}" method="POST"> <!--action="https://formsubmit.co/ecd140b5d5b1a3deb8ffe5ca7be23196"-->
+      <form method="POST" action="{% url 'contacto_nuevo' %}" id="form" class="form">
+
         {% csrf_token %}
-            <!-- Nombre usuario -->
-        <div class="mb-2 px-5" id="divNombre">
-            <label class="my-2 col-12 p-1 text-center" for="nombre">Nombre</label>
-            <input id="nombre" name="name" type="text" class="form-control">
+        <div class="field campo">
+            <label class=" text_campo" for="nombre">Nombre</label>
+            <input type="text" class="form-control" name="nombre" id="nombre">
         </div>
-        <!-- Gmail usuario -->
-        <div class="mb-2 px-5">
-            <label for="correo" class="form-label col-12 p-1 text-center">Correo electrónico</label>
-            <input id="correo" name="email" type="email" class="form-control" placeholder="nombre@gmail.com">
+        <div class="field campo">
+            <label class=" text_campo" for="correo">Correo</label>
+            <input type="email" class="form-control" name="email" id="correo">
         </div>
-        <!-- Text-area usuario -->
-        <div class="px-5">
-            <label for="mensaje" class="form-label col-12 p-1 text-center">Mensaje</label>
-            <textarea class="form-control" id="mensaje" name="message" placeholder="Escríbeme..." rows="4"></textarea>
+        <div class="field campo">
+            <label class=" text_campo" for="mensaje">Mensaje</label>
+            <textarea class="form-control campo-formulario" name="mensaje" id="mensaje" rows="5"></textarea>
         </div>
-        <!-- Para enviar los datos del formulario -->
-        <div class="botonEnviar text-center ">
-            <input class="boton-diseno px-5 py-2 " type="submit" value="Enviar" id="enviar">
-        </div>
-      </form>
+      
+        <br><br>
+        <input type="submit" id="button" class="btn btn-info" value="Enviar mensaje">
+    </form>
     </div>
   </div>
 </section>
 </body>
+<script src="{% static 'js/validacionz.js' %}"></script>
 </html>

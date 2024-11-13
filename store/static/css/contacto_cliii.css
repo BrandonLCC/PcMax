@@ -96,27 +96,99 @@
 }
 
 
-/* formulario */
-
 .seccion-formulario {
-    margin: 0;
+    margin-top: 50px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.img-formulario {
-    height: 100%;
+.div-img {
+    flex: 1;
+    padding: 20px;
+}
+
+.div-img img {
+    width: 100%;
+    border-radius: 10px;
 }
 
 .div-formulario {
-    background-color: var(--color-1-empresa);
-    color: var(--color-2-empresa);
-    
+    flex: 1;
+    background-color: #02ff02;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #003366;
 }
 
 .subtitulo-formulario {
-    color: var(--color-2-empresa);
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
 }
 
-label {
-    color: var(--color-2-empresa)
+/* Estilos de los campos del formulario */
+.field {
+    margin-bottom: 20px;
+}
 
+.text_campo {
+    font-size: 1rem;
+    color: #003366;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.form-control {
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+textarea.form-control {
+    resize: vertical;
+}
+
+/* Estilos para el botón de enviar */
+#button {
+    background-color: #00cc99;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+#button:hover {
+    background-color: #009966;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .seccion-formulario {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .div-img,
+    .div-formulario {
+        flex: 1 100%;
+    }
+
+    .div-formulario {
+        padding: 20px;
+    }
 }

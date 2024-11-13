@@ -74,6 +74,9 @@ class Contacto(models.Model):
     mensaje_cifrado = models.TextField()
     fecha = models.DateTimeField(auto_now_add=True) 
 
+    def __str__(self):
+        return self.nombre
+
 #Modelos del carro de compras
 class Carrito(models.Model):
     usuario = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)  # Permitir nulos

@@ -1,0 +1,26 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block head %}
+    <link rel="icon" href="{% static 'images/logoz.jpg' %}">
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css/confirmacion.css' %}">
+
+    <title>Mensaje de Confirmación</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5 py-5 confirmation-container">
+        <h3 class="text-center">Zapatería <span style="color: lime;">Sports</span> <span><img src="{% static 'images/logoz.jpg' %}" alt="Logo Zapatería" class="confirmation-image" style="width: 50px;"></span></h3>
+        <h2 class="confirmation-heading text-center">No se mando el mensaje</h2>
+        <p class="confirmation-text text-center">rellene los campos o intente de nuevo!</p>
+      <!-- volver index -->
+        
+        <p class="text-center"> <a href="{% url 'index' %}" class="btn btn-primary">Volver al inicio</a> </p>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {% bootstrap_javascript %}
+{% endblock %}
