@@ -8,10 +8,12 @@
 * {
     margin: 0;
 }
+
 .navbar {
-    background-color: var(--color-2-empresa);
     width: 100%;
+    font-weight: 500;
     z-index: 1;
+    background-color: var(--color-2-empresa);
 }
 
 .navbar-nav {
@@ -42,37 +44,61 @@
     border-radius: 10px;
     animation-delay: 2s;
     cursor: default;
+
 }
 
 .logo-PcMax {
     position: relative;
-    width: 82px;
-    height: 70px;
+    width: 78px;
+    height: 65px;
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 
-/* input */
-.form-control {
-    margin-left: auto;
-    background-color: #15c01500;
-    border-color: var(--color-1-empresa);
-    margin-left: 5px;
+
+
+@keyframes box-producto {
+    0% {
+        border-color: var(--color-1-empresa);
+    }
+    50% {
+        border-color: #292929;
+    }
+    0% {
+        border-color: var(--color-1-empresa);
+    }
 }
 
 /* Boton buscar */
 .btn-buscar {
-    background: linear-gradient(85deg, #44ff44, #fff200); /* Doble color */
-    font-weight: 550;
+    position: relative;
+    background: linear-gradient(85deg, #44ff44,#44ff44, #fff200); 
+    font-weight: 650;
     color: var(--color-blanco);
-
+    padding: 2px
+    
 }
 
+
 .btn-buscar:hover {
+   background: linear-gradient(85deg,  #ffffff,#ffffff); 
    animation-duration: 2s;
-   color: #175317;
+   color: var(--color-1-empresa);
    z-index: 5;
 }
 
-/* fin navbar */
+
+.link-carro {
+    background: linear-gradient(85deg, #44ff44, #44ff44); 
+    border-radius: 5px;
+}
+
+.link-carro:hover {
+    background: linear-gradient(85deg, #ffffff, #ffffff); 
+
+}
+ 
+/* Fin navbar */
 
 /* link de Pcmax */
 .navbar-brand {
@@ -91,8 +117,10 @@
 
 .logo-PcMax {
     position: relative;
-    width: 82px;
-    height: 70px;
+    width: 78px;
+    height: 65px;
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 
 
@@ -191,4 +219,31 @@ textarea.form-control {
     .div-formulario {
         padding: 20px;
     }
+}
+
+/* input */
+
+.input-buscar-producto {
+    outline: none;
+    color: #000000; 
+
+}
+
+.input-buscar-producto::placeholder {
+    color: var(--color-blanco);
+}
+
+.input-buscar-producto:focus{
+    outline: none; 
+    color: #000000; 
+}
+
+/* input */
+.input-buscar-producto {
+    margin-left: auto;
+    background-color: #3636361d;
+    border-color: var(--color-1-empresa);
+    animation:  box-producto 5s ease forwards;
+    animation-iteration-count: infinite;
+    margin-left: 5px;
 }

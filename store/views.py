@@ -24,7 +24,7 @@ def home(request):
 def lista_productos(request):
     categoria = request.GET.get('id_categoria', '')  
     if categoria:
-        productos = Producto.objects.filter(id_categoria=categoria)#.select_related('id_almacen') 
+        productos = Producto.objects.filter(id_categoria=categoria).select_related('id_categoria') 
     else:
         productos = Producto.objects.all()  
         
@@ -47,7 +47,7 @@ def guia_tutorial(request):
 
 
 def detalle_productos(request, pk):
-    producto = get_object_or_404(Producto.objects.select_related('id_almacen').all(), pk=pk)  # Obtén el producto por su ID
+    producto = get_object_or_404(Producto.objects.select_related('id_categoria','id_almacen').all(), pk=pk)  # Obtén el producto por su ID
     return render(request, 'detalle_producto.html', {'producto': producto})
 
 def carro_compra(request):

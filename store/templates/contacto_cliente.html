@@ -15,16 +15,16 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'css/contacto_cliii.css' %}">
-
+    <link rel="stylesheet" href="{% static 'css/contacto_cliii5.css' %}">
+ 
 </head>
 <body>
  <!-- Navbar -->
  <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div>
-      <a href="{% url 'home' %}"> 
-          <img src="{% static './images/logo-empresa.jpg' %}" class="logo-PcMax ms-3" alt="Logo Empresa"> 
-      </a>
+    <a href="{% url 'home' %}"> 
+        <img src="{% static './images/logo-empresa.jpg' %}" class="logo-PcMax ms-3" alt="Logo Empresa"> 
+    </a>
   </div>
     <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,49 +33,80 @@
 
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'inicio_sesion' %}">Iniciar sesión</a>
+          <!--Link inicio sesion -->
+          <li class="nav-item me-2">
+            <a class="nav-link active" href="{% url 'inicio_sesion' %}">
+              <i class="fas fa-user"></i>
+              Iniciar sesión
+            </a>
           </li>
-          
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'registro_cliente' %}">Registro</a>
+          <!--Link Registro -->
+          <li class="nav-item me-2">
+            <a class="nav-link active" href="{% url 'registro_cliente' %}">
+              <i class="fas fa-user-plus"></i> 
+              Registro
+            </a>
           </li>
-         
-         
-
-          <li class="nav-item">
-            <a class="nav-link active" aria-disabled="true">Historial</a>
+          <!--Link Historial -->
+          <li class="nav-item me-2">
+            <a class="nav-link active" aria-disabled="true">
+              <i class="fas fa-history"></i> 
+              Historial
+            </a>
           </li>
           <!-- DROP CATEGORIAS-->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Categorias</a>
+          <li class="nav-item me-2 dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+              <i class="fas fa-list mx-auto"></i>
+              Categorias
+            </a>
+            <!-- dropdown menu -->
             <ul class="dropdown-menu">
-              
-              <li><a class="dropdown-item" href="{% url 'lista_productos' %}?productos.id_producto=Pc gamer">Laptops</a></li>
-              <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria_producto=2">PC gamers</a></li>
-              <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria_producto=3">Celulares</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Todos los productos</a></li>
+              <li>
+                <a class="dropdown-item py-2" href="{% url 'lista_productos' %}?id_categoria=1">
+                  <i class="fas fa-desktop mx-auto"></i>
+                  Pc gamer</a>
+              </li> 
+              <li>
+                <a class="dropdown-item py-2" href="{% url 'lista_productos' %}?id_categoria=2">
+                  <i class="fas fa-laptop"></i>
+                  Laptop</a>
+              </li> 
+              <li>
+                <a class="dropdown-item py-2" href="{% url 'lista_productos' %}?id_categoria=3">
+                  <i class="fas fa-mobile-alt"></i>
+                  Celulares</a>           
+                <li>
+                <hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item py-2" href="{% url 'lista_productos' %}?id_categoria=0">
+                  <i class="fas fa-box-open mx-auto"></i>
+                    Todos los productos
+                </a>
+              </li>
             </ul>
           </li>
-           <!-- DROP AYUDA -->
+           <!-- DROP AYUDA 
            <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Ayuda</a>
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+              Ayuda
+            </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="{% url 'contacto_cliente' %}">Contactanos</a></li>
               <li><a class="dropdown-item" href="{% url 'guia_tutorial' %}">Guías y tutoriales</a></li>
             </ul>
-          </li>
+          </li>-->
           <!--Link carro compras -->
           <li class="nav-item link-carro mx-1">
-            <a class="nav-link active  " href="{% url 'carro_compra' %}"">Carro
-              <i class="fas fa-shopping-cart"></i>
+            <a class="nav-link active  " href="{% url 'carro_compra' %}"">
+              Carro
+              <i class="fas fa-shopping-cart"></i> <!-- icon carro-->
             </a>
             
           </li>
 
-          <form class="from-buscar d-flex" method="get">
-            <input class="form-control me-2" placeholder="Buscar un Producto" aria-label="Search">
+          <form class="from-buscar d-flex ms-2" method="get">
+            <input class="input-buscar-producto form-control me-2" placeholder="Busca un Producto" aria-label="Search">
             <button class="btn btn-buscar px-3 py-2" type="submit">Buscar</button>
           </form>
         </ul>
@@ -83,6 +114,7 @@
     </div>
 </nav>
 <!-- Fin NavBar-->
+
  
 <section class="seccion-formulario col-12 mx-auto">
   <div class="d-flex">
