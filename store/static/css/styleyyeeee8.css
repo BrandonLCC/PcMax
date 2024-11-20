@@ -1,7 +1,7 @@
 :root {
     /* Aqui  se definen los colores de la empresa PCmax */
     --color-blanco: #ffffff;
-    --color-gris-2:#f1f1f1 ; 
+    --color-gris-2:#fafafa ; 
     --color-gris: #515151;
     --color-1-empresa: #02ff02;
     --color-2-empresa: #000000;
@@ -12,12 +12,14 @@
     margin: 0;
 }
 
+
 .navbar {
     position: absolute;
     width: 100%;
     font-weight: 500;
     z-index: 1;
 }
+
 
 .navbar-nav {
     display: flex;
@@ -52,18 +54,35 @@
 
 .logo-PcMax {
     position: relative;
-    width: 75px;
+    width: 78px;
     height: 65px;
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 
 /* input */
+
+.input-buscar-producto {
+    outline: none;
+}
+.input-buscar-producto::placeholder {
+    color: var(--color-blanco);
+}
+
+.input-buscar-producto:focus{
+    outline: none; 
+    color: #000000; 
+}
+
 .form-control {
     margin-left: auto;
-    background-color: #15c01500;
     border-color: var(--color-1-empresa);
     animation:  box-producto 5s ease forwards;
     animation-iteration-count: infinite;
     margin-left: 5px;
+    background-color: rgba(64, 64, 64, 0.1); 
+    backdrop-filter: blur(4px); 
+    -webkit-backdrop-filter: blur(4px);
 }
 
 @keyframes box-producto {
@@ -80,17 +99,19 @@
 
 /* Boton buscar */
 .btn-buscar {
+    position: relative;
     background: linear-gradient(85deg, #44ff44,#44ff44, #fff200); 
     font-weight: 650;
     color: var(--color-blanco);
-    
+    padding: 2px
     
 }
 
 
 .btn-buscar:hover {
+   background: linear-gradient(85deg,  #ffffff,#ffffff); 
    animation-duration: 2s;
-   color: #175317;
+   color: var(--color-1-empresa);
    z-index: 5;
 }
 
@@ -139,12 +160,13 @@ h1 {
 }
 
 /* PRODUCTOS */
-
 .seccion-productos {
     position: relative;
-    background:var(--color-gris-2);
     border-radius: 10px;
+    background-color: var(--color-gris-2);
+    border: 1px solid #cacaca;
 }
+
 
 .titulo-producto {
     background-color: var(--color-2-empresa);
@@ -158,8 +180,6 @@ h1 {
 
 .subtitulo-producto{
     background: linear-gradient(85deg, #44ff44, #fff200); 
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
 
 }
 
@@ -259,10 +279,13 @@ h1 {
 /* CATEGORIA */
 
 .container-categorias {
-    background: linear-gradient(80deg, #abff02, #000000,#000000,#02ff02 ); 
     text-align: center;
     color: var(--color-blanco);
     border-radius: 5px;
+    background-color: var(--color-2-empresa);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
 }
 
 .titulo-categoria {
@@ -271,7 +294,7 @@ h1 {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     margin: 0;
-    border-bottom: 7px double var(--color-1-empresa);
+   
 }
 
 .links-categorias {
@@ -280,9 +303,9 @@ h1 {
    
 }
 
+
 .img-categorias {
     position: relative;
-    display: block; 
     width: 100%; 
     height: 100%;  
     object-fit: cover; 
@@ -300,32 +323,77 @@ h1 {
     transform: scale(1.1); 
     transition: all 1s ease; 
     z-index: 2;
+    color: var(--color-1-empresa);
+
 }
 
 
 .card-title-categoria {
+    text-shadow: 0px 0px 10px var(--color-2-empresa);
     color: var(--color-blanco);
 }
 
 .card-title-categoria:hover {
     color: var(--color-1-empresa);
+    transform: scale(1.04); 
+    transition: all 500ms ease; 
+
+}
+
+.img-cat-left {
+    border-bottom-left-radius: 10px;
+}
+
+.img-cat-right {
+    border-bottom-right-radius: 10px;
 }
 
 /* Publicidad */
 
 .titulo-publicidad {
+    position: relative;
     background-color: var(--color-2-empresa);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     color: var(--color-blanco);
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    color: var(--color-blanco);
-    border-radius: 10px;
+    margin: 0;
+    
+
 }
 
-.img-publicidad {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+.marquee-div {
+    margin: 0;
+    background-color: #000000;
+}
 
+.marquee-publicidad {
+    position: relatives;
+    background-color: var(--color-2-empresa);
+    color: var(--color-blanco);
+    cursor: default;
+    animation:  oferta-producto  2s ease forwards;
+    animation-iteration-count: infinite;
+    margin: 0;
+}
+
+
+@keyframes oferta-producto {
+0% {
+    color: var(--color-blanco);
+}
+50% {
+    color: #ff0000;
+}
+90% {
+    color: var(--color-blanco);
+
+}
+}
+
+
+.img-publicidad {
+    position: relative;
+    margin: 0;
     height: 250px;
 }
 
@@ -348,6 +416,9 @@ h1 {
 
 
 /* TE GARANTIZAMOS */
+.seccion-crear-cuenta {
+    border-radius: 10px;
+}
 
 .titulo-garantizamos {
     position: relative;
@@ -362,6 +433,32 @@ h1 {
 .div-garantizamos {
     position: relative;
     display: flex;
+   
+}
+
+.div-seguridad {
+    background-color: var(--color-blanco);
+    margin-top: 10px;
+    margin-bottom: 30px;
+
+}
+
+.div-envios {
+    background-color: var(--color-blanco);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+
+}
+
+.div-cliente {
+    background-color: var(--color-blanco);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+
 }
 
 .img-seguridad {

@@ -18,7 +18,7 @@
       {% bootstrap_javascript %}
       <!-- CSS -->
       <link rel="icon" type="image/png" href="{% static 'images/logo-empresa.jpg' %}">
-      <link rel="stylesheet" href="{% static 'css/styleyyeeee4.css' %}">
+      <link rel="stylesheet" href="{% static 'css/styleyyeeee8.css' %}">
 
 </head>
 <body>
@@ -34,47 +34,80 @@
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" href="{% url 'inicio_sesion' %}">Iniciar sesión</a>
+            <!--Link inicio sesion -->
+            <li class="nav-item me-2">
+              <a class="nav-link active" href="{% url 'inicio_sesion' %}">
+                <i class="fas fa-user"></i>
+                Iniciar sesión
+              </a>
             </li>
-            
-            <li class="nav-item">
-              <a class="nav-link active" href="{% url 'registro_cliente' %}">Registro</a>
+            <!--Link Registro -->
+            <li class="nav-item me-2">
+              <a class="nav-link active" href="{% url 'registro_cliente' %}">
+                <i class="fas fa-user-plus"></i> 
+                Registro
+              </a>
             </li>
-           
-           
-
-            <li class="nav-item">
-              <a class="nav-link active" aria-disabled="true">Historial</a>
+            <!--Link Historial -->
+            <li class="nav-item me-2">
+              <a class="nav-link active" aria-disabled="true">
+                <i class="fas fa-history"></i> 
+                Historial
+              </a>
             </li>
             <!-- DROP CATEGORIAS-->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Categorias</a>
+            <li class="nav-item me-2 dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                <i class="fas fa-list mx-auto"></i>
+                Categorias
+              </a>
+              <!-- dropdown menu -->
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria=1">Pc gamer</a></li> 
-                <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria=2">Laptop</a></li> 
-                <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria=3">Celulares                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria=0">Todos los productos</a></li>
+                <li>
+                  <a class="dropdown-item py-2" href="{% url 'lista_productos' %}?id_categoria=1">
+                    <i class="fas fa-desktop mx-auto"></i>
+                    Pc gamer</a>
+                </li> 
+                <li>
+                  <a class="dropdown-item py-2" href="{% url 'lista_productos' %}?id_categoria=2">
+                    <i class="fas fa-laptop"></i>
+                    Laptop</a>
+                </li> 
+                <li>
+                  <a class="dropdown-item py-2" href="{% url 'lista_productos' %}?id_categoria=3">
+                    <i class="fas fa-mobile-alt"></i>
+                    Celulares</a>           
+                  <li>
+                  <hr class="dropdown-divider"></li>
+                <li>
+                  <a class="dropdown-item py-2" href="{% url 'lista_productos' %}?id_categoria=0">
+                    <i class="fas fa-box-open mx-auto"></i>
+                      Todos los productos
+                  </a>
+                </li>
               </ul>
             </li>
-             <!-- DROP AYUDA -->
+             <!-- DROP AYUDA 
              <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Ayuda</a>
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                Ayuda
+              </a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="{% url 'contacto_cliente' %}">Contactanos</a></li>
                 <li><a class="dropdown-item" href="{% url 'guia_tutorial' %}">Guías y tutoriales</a></li>
               </ul>
-            </li>
+            </li>-->
             <!--Link carro compras -->
             <li class="nav-item link-carro mx-1">
-              <a class="nav-link active  " href="{% url 'carro_compra' %}"">Carro
-                <i class="fas fa-shopping-cart"></i>
+              <a class="nav-link active  " href="{% url 'carro_compra' %}"">
+                Carro
+                <i class="fas fa-shopping-cart"></i> <!-- icon carro-->
               </a>
               
             </li>
 
-            <form class="from-buscar d-flex" method="get">
-              <input class="form-control me-2" placeholder="Buscar un Producto" aria-label="Search">
+            <form class="from-buscar d-flex ms-2" method="get">
+              <input class="input-buscar-producto form-control me-2" placeholder="Busca un Producto" aria-label="Search">
               <button class="btn btn-buscar px-3 py-2" type="submit">Buscar</button>
             </form>
           </ul>
@@ -99,8 +132,11 @@
 
   <!-- PRODUCTOS  -->
    <section class="seccion-productos col-11 col-sm-11 col-md-11  mx-auto my-5">
-    <h2 class="titulo-producto py-2 ps-5">Nuevos productos</h2>
-    <p class="subtitulo-producto py-1 ps-5">Hechale un nuevo visto a los productos de tu interes</p>
+    <h2 class="titulo-producto py-2 ps-5">
+      <i class="fas fa-box-open mx-auto"></i>
+      Productos
+    </h2>
+    <p class="subtitulo-producto py-1 ps-5">Hechale un nuevo vistazo a los productos de tu interés. Mantente al día con las últimas novedades y ofertas especiales en nuestra tienda.</p>
       <div class="div-orden-productos row">
           {% for producto in productos %}
           <div class="col-6 col-sm-6 col-md-4 col-xl-3 mx-auto">
@@ -120,7 +156,9 @@
                         <p class="card-text-desc-2 ms-2">Antes</p>
                       </div>
                       <div class="div-boton mx-auto">
-                        <a class="btn-link-a px-5" href="{% url 'detalle_producto' producto.id %}">Ver producto</a>
+                        <a class="btn-link-a " href="{% url 'detalle_producto' producto.id %}">
+                          <i class="fas fa-box-open mx-auto"></i>
+                          Ver producto</a>
                       </div>
                   </div>
               </div>
@@ -133,25 +171,28 @@
 
   <!-- CATEGORIAS -->
   <section class="container-categorias col-11 mx-auto  my-2">
-    <h2 class="titulo-categoria py-2 pb-2">Categorías</h2>
+    <h2 class="titulo-categoria py-3 pb-3">
+      <i class="fas fa-list mx-auto"></i>
+      Sección de Categorías
+    </h2>
       <div class="links-categorias ">
         <a href="{% url 'lista_productos' %}?id_categoria=1">
           <div class="img-hover-cate position-relative">
-            <img src="{% static './images/HERO-OFICIAL.jpg '%}" class="col-12 img-categorias" alt="...">
+            <img src="{% static './images/HERO-OFICIAL.jpg '%}" class="col-12 img-categorias  img-cat-left " alt="...">
             <h2 class="card-title-categoria position-absolute top-50 start-50 translate-middle">Pc Gamer</h2>
           </div>
         </a>
         
         <a href="{% url 'lista_productos' %}?id_categoria=2">
           <div class="img-hover-cate position-relative">
-            <img src="{% static './images/HERO-OFICIAL.jpg '%}" class="col-12 img-categorias" alt="...">
+            <img src="{% static './images/categoria-laptop.webp '%}" class="col-12 img-categorias " alt="...">
             <h2 class="card-title-categoria position-absolute top-50 start-50 translate-middle">Laptops</h2>
           </div>
         </a>
       
         <a href="{% url 'lista_productos' %}?id_categoria=3">
           <div class="img-hover-cate position-relative">
-            <img src="{% static './images/HERO-OFICIAL.jpg ' %}" class="col-12 img-categorias" alt="...">
+            <img src="{% static './images/Categoria-celular.jpg ' %}" class="col-12 img-categorias img-cat-right " alt="...">
             <h2 class="card-title-categoria position-absolute top-50 start-50 translate-middle">Celulares</h2>
           </div>
         </a>
@@ -162,22 +203,33 @@
 
   <!-- PUBLICIDAD -->
   <section class="seccion-publicidad col-11 mx-auto my-5 ">
-    <h2 class="titulo-publicidad py-2 ps-5">Ofertas Solo por hoy</h2>
+    
+    <h2 class="titulo-publicidad  pt-3 pb-1  text-center">
+      <i class="fas fa-tags"></i>
+      Ofertas Solo por hoy
+    </h2>
+    <div class="marquee-div">
+      <marquee class="marquee-publicidad" behavior="scroll" direction="left">ENCUENTRA AQUI NUESTROS PRODUCTOS EN DESCUENTO</marquee>
+
+    </div>
+
     <div>
+      
       <div class="col-12">
+
         <a href="{% url 'lista_productos' %}?id_categoria_producto=1">
           <img src="{% static './images/publicidad-3.jpg '%}" class="img-publicidad col-12 " alt="...">
         </a>
       </div>
       <div class="d-flex">
         <div class="col-4">
-          <img src="{% static './images/publicidad-3.jpg '%}" class="img-publicidad-left col-12 " alt="...">
+          <img src="{% static './images/publicidad 2.jpg '%}" class="img-publicidad-left col-12 " alt="...">
         </div>
         <div class="col-4">
-          <img src="{% static './images/publicidad-3.jpg '%}" class="img-publicidad-medio col-12 " alt="...">
+          <img src="{% static './images/publicidad 3.jpeg'%}" class="img-publicidad-medio col-12 " alt="...">
         </div>
         <div class="col-4">
-          <img src="{% static './images/publicidad-3.jpg '%}" class="img-publicidad-right col-12 " alt="...">
+          <img src="{% static './images/publiciadad celular.webp '%}" class="img-publicidad-right col-12 " alt="...">
         </div>
       </div>
     </div>
@@ -186,9 +238,12 @@
   <br class="col-10 mx-auto">
 
    <!-- HISTORIAL PRODUCTOS  -->
-   <section class="seccion-productos col-11 col-sm-11 col-md-11  mx-auto my-5">
-    <h2 class="titulo-producto py-2 ps-5">Nuevos productos</h2>
-    <p class="subtitulo-producto py-1 ps-5">Hechale un nuevo visto a los productos de tu interes</p>
+  <section class="seccion-productos col-11 col-sm-11 col-md-11  mx-auto my-5">
+    <h2 class="titulo-producto py-2 ps-5">
+      <i class="fas fa-box-open mx-auto"></i>
+      Mira los productos que has visto
+    </h2>
+    <p class="subtitulo-producto py-1 ps-5">Hechale un nuevo vistazo a los productos de tu interés. Mantente al día con las últimas novedades y ofertas especiales en nuestra tienda.</p>
       <div class="div-orden-productos row">
           {% for producto in productos %}
           <div class="col-6 col-sm-6 col-md-4 col-xl-3 mx-auto">
@@ -198,16 +253,19 @@
                   {% endif %}
                   <div class="card-body">
                       <h5 class="card-title text-center">{{ producto.nombre_producto }}</h5>
-                      <p class="card-id-producto">Cat: {{ producto.id_categoria_producto }}</p>
+                      <p class="card-id-producto">ID: {{ producto.id }}</p>
+                      <p class="card-id-producto_categoria col-5">Cat: {{ producto.id_categoria.nombre_categoria }}</p>
                       <div>
                         <p class="card-text text-center">{{ producto.descripcion_producto|truncatechars:46 }}</p>
-                        <p class="card-text-precio ms-2">${{ producto.precio_producto|currency  }}</p>
+                        <p class="card-text-precio ms-2">${{ producto.precio_producto|currency }}</p> <!--Float format para formato de puntos -->
                         <p class="card-text-precio-2 ms-2">Precio actual</p>
                         <p class="card-text-desc ms-2 mt-4">${{ producto.precio_producto|currency  }}</p>
                         <p class="card-text-desc-2 ms-2">Antes</p>
                       </div>
                       <div class="div-boton mx-auto">
-                        <a class="btn-link-a px-5" href="{% url 'detalle_producto' producto.id %}">Ver producto</a>
+                        <a class="btn-link-a " href="{% url 'detalle_producto' producto.id %}">
+                          <i class="fas fa-box-open mx-auto"></i>
+                          Ver producto</a>
                       </div>
                   </div>
               </div>
@@ -238,22 +296,22 @@
     <section class="seccion-crear-cuenta col-11 mx-auto my-5 ">
       <h2 class="titulo-garantizamos py-2 pb-2">PcMax te garantiza</h2>
         <div class="div-garantizamos col-11 mx-auto row">
-          <div class="col-4 text-center  ">
+          <div class="div-envios col-4 text-center  ">
             <h3 class="my-2">Envios rapidos</h3>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta dicta neque explicabo deleniti sed libero vitae odit obcaecati, totam perspiciatis mollitia maiores pariatur ipsa reprehenderit vel officiis enim eos voluptatibus!s
-            <div>
+            <div class="mt-3">
               <img src="{% static './images/camion-de-reparto.png '%}" class="img-seguridad col-12 mt-2" alt="...">
             </div>
           </div>
-          <div class="col-4 text-center ">
+          <div class="div-seguridad col-4 text-center ">
             <h3 class="my-2">Seguridad</h3>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores eveniet nulla distinctio maiores, ducimus laudantium aspernatur ad obcaecati possimus aliquid ut, quidem esse explicabo. Excepturi unde fugiat ea esse magni.
           
-            <div>
+            <div class="my-3">
               <img src="{% static './images/proteger.png '%}" class="img-seguridad col-12 mt-2" alt="...">
             </div>
           </div>
-          <div class="col-4 text-center ">
+          <div class="div-cliente col-4 text-center ">
             <h3 class="my-2">Servicio al cliente</h3>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed, molestiae, unde nam ut architecto minus numquam consequuntur exercitationem mollitia quisquam nulla excepturi fugiat odit voluptate illo velit voluptatibus minima totam.
             <div>

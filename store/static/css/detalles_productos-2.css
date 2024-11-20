@@ -6,6 +6,11 @@
     --color-1-empresa: #02ff02;
     --color-2-empresa: #000000;
     --color-rojo: #ff0202;
+    
+}
+
+* {
+    margin: 0;
 }
 
 .navbar {
@@ -13,7 +18,7 @@
     font-weight: 500;
     z-index: 1;
     background-color: var(--color-2-empresa);
-    
+    margin: 0;
 }
 
 .navbar-nav {
@@ -49,14 +54,31 @@
 
 .logo-PcMax {
     position: relative;
-    width: 75px;
+    width: 78px;
     height: 65px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+/* input */
+
+.input-buscar-producto {
+    outline: none;
+
+}
+.input-buscar-producto::placeholder {
+    color: var(--color-blanco);
+}
+
+.input-buscar-producto:focus{
+    outline: none; 
+    color: #000000; 
 }
 
 /* input */
 .form-control {
     margin-left: auto;
-    background-color: #15c01500;
+    background-color: #3636361d;
     border-color: var(--color-1-empresa);
     animation:  box-producto 5s ease forwards;
     animation-iteration-count: infinite;
@@ -68,7 +90,7 @@
         border-color: var(--color-1-empresa);
     }
     50% {
-        border-color: #000000;
+        border-color: #383838;
     }
     0% {
         border-color: var(--color-1-empresa);
@@ -77,19 +99,22 @@
 
 /* Boton buscar */
 .btn-buscar {
+    position: relative;
     background: linear-gradient(85deg, #44ff44,#44ff44, #fff200); 
     font-weight: 650;
     color: var(--color-blanco);
-    
+    padding: 2px
     
 }
 
 
 .btn-buscar:hover {
+   background: linear-gradient(85deg,  #ffffff,#ffffff); 
    animation-duration: 2s;
-   color: #175317;
+   color: var(--color-1-empresa);
    z-index: 5;
 }
+
 
 .link-carro {
     background: linear-gradient(85deg, #44ff44, #44ff44); 
@@ -100,85 +125,80 @@
     background: linear-gradient(85deg, #ffffff, #ffffff); 
 
 }
+ 
+/* Fin navbar */
 
-.form-control {
-    margin-left: auto;
-    background-color: #15c01500;
-    border-color: var(--color-1-empresa);
-    animation:  box-producto 5s ease forwards;
-    animation-iteration-count: infinite;
-    margin-left: 5px;
-}
-.carrito-lista {
-    list-style-type: none;
-    padding: 0;
+
+.con_detalle {
+    position: relative;
+    bottom: 50px;
 }
 
-.carrito-item {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 10px 0;
-    padding: 55px 20px;
+.div-img {
+    overflow: hidden;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    height: 100%;
+    border-top-left-radius: 10px ;
+    border-bottom-left-radius: 10px;
 }
 
-.product-image {
-    max-width: 100px;
-    border-radius: 5px;
-    margin-right: 20px;
+.zoom {
+    position: relative;
+    transition: transform 1s;
+
 }
 
-.product-details {
-    flex-grow: 1;
+.zoom:hover {
+    transform:scale(1.5);
+    cursor:zoom-in;
 }
 
-.product-details h3 {
-    margin: 0;
-    font-size: 1.2em;
+/*derecha div */
+.div-texto-padre-producto {
+    border: 1px solid var(--color-2-empresa);
 }
 
-.product-details p {
-    margin: 5px 0;
+/*Texto 1 div producto */
+.titulo-producto {
+    position: relative;
+    background-color: var(--color-2-empresa);
+    color: var(--color-blanco);
+    text-align: end;
+    padding: 10px;
 }
 
-.product-quantity select {
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
+.precio {
+    text-align: end;
+
 }
 
-.eliminar {
-    color: #383737;
+.stockk {
+    text-align: end;
+
+}
+
+.div-medio-de-pago {
+    text-align: end;
+
+}
+
+
+
+.btn {
+    background: linear-gradient(85deg, #44ff44, #fff200); 
     text-decoration: none;
-    font-weight: bold;
-    margin-left: 20px;
-    font-size: 2em;
-}
+    font-weight: 550;
+    color: var(--color-blanco);
+    padding: 10px;
+    transition: all 0.3s ease; 
+    border: none;
 
-.eliminar:hover {
-    text-decoration: underline;
 }
-
-.continuar-comprando {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
+.btn:hover {
+    background: linear-gradient(85deg,  #fff200,#44ff44); 
     border-radius: 5px;
-    text-align: center;
+    color: #175317;
+    box-shadow: 0px 0px 100px 2px #9cff8d6e;
+
 }
 
-.continuar-comprando:hover {
-    background-color: #0056b3;
-}
-
-.productoIMG{
-
-   width: 150px;
-}
