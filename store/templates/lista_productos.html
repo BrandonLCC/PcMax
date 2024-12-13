@@ -16,7 +16,7 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'css/lista_productotttttt.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lista_producto-3.css' %}">
 
 </head>
 <body>
@@ -115,22 +115,42 @@
       </div>
   </nav>
 <!-- Fin NavBar-->
-<section>
-  <h2 class="titulo-producto py-2 ps-5">Nuevos productos</h2>
-    <p class="subtitulo-producto py-1 ps-5">Hechale un nuevo visto a los productos de tu interes</p>
+
+
+
+<section class="col-12 mx-auto">
+  <div class="col-12 mx-auto">
+
     
+    <div class="col-11 mx-auto mt-5 div-img-lista-productos">
+       
+      <img src="{{ categoria.imagen_categoria.url }}" class="ms-auto primera-imagen-list" alt="">
+      <div class="col-11 div-titulo-1  ms-auto">
+        {% if categoria %}
+        <h1 class="titulo-1 col-4  ">Nuestros productos en {{ categoria.nombre_categoria }}</h1>
+        {% endif %} 
+      </div>
+    </div>
+    
+
+
+    <div class="col-11 mx-auto div-flujo-links-a py-3">
+      <a class="flujo-link-a" href="{% url 'home' %}">&lt; Ir al Inicio</a>
+      <a class="flujo-link-a" href="{% url 'lista_productos' %}?id_categoria=">&lt;Todos los Productos</a>
+      <a class="flujo-link-a" href="{% url 'carro_compra' %}">&gt; Carro compras</a>
+    </div>
+    
+    
+  </div>
+  <h2 class="titulo-producto col-11 mx-auto mt-5  pb-1">Nuestros productos en {{ categoria.nombre_categoria }}</h2>
+  <p class="subtitulo-producto py-1 ps-5">Hechale un nuevo visto a los productos de tu interes</p>
+  
     <!-- Productos -->
     <div class="container">
-        <h1>Productos</h1>
-
-        <div class="div-flujo-links-a">
-          <a class="flujo-link-a" href="{% url 'home' %}">&lt; Ir al Inicio</a>
-          <a class="flujo-link-a" href="{% url 'lista_productos' %}?id_categoria=">&lt;Todos los Productos</a>
-          <a class="flujo-link-a" href="{% url 'carro_compra' %}">&gt; Carro compras</a>
-        </div>
 
         <div class="row">
             {% for producto in productos %}
+
             <div class="col-md-3">
                 <div class="card">
                     {% if producto.imagen_producto %}

@@ -26,15 +26,12 @@ def generateAccessToken():
 
     )
 
-    ##Con este print veremos la respuesta en la terminal de que hemos accedido a las funciones y procesos de comprar y pagar
-    print(response.json())
     #Debe retornar si o si en json
     data = response.json()
     return data['access_token']
 
 
-def crearOrden(carro_productos):
-    print(carro_productos)
+def crearOrden(valorFinalCarro):
     try:
         access_token = generateAccessToken()
         url = "https://api-m.sandbox.paypal.com/v2/checkout/orders"
@@ -45,7 +42,7 @@ def crearOrden(carro_productos):
                     #Monto y el formato de la moneda
                     "amount": {
                         "currency_code": "USD",
-                        "value": "1"
+                        "value": str(valorFinalCarro)
                     }
                 }
             ]

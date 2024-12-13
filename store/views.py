@@ -2,6 +2,7 @@ from django.contrib import messages
 
 from django.shortcuts import render, redirect
 from .models import Producto, Carrito , CarritoProducto as ElementoCarrito
+from .models import Categorias
 from django.db import connection
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -11,7 +12,8 @@ from .functions import generateAccessToken, crearOrden
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-
+from .functions import * 
+from .models import Ventas
 # Creacion de  las vistas 
 
 def home(request):
@@ -24,11 +26,13 @@ def home(request):
 def lista_productos(request):
     categoria = request.GET.get('id_categoria', '')  
     if categoria:
+        categoria = get_object_or_404(Categorias, id_categoria=categoria)
         productos = Producto.objects.filter(id_categoria=categoria).select_related('id_categoria') 
     else:
+        categoria = None
         productos = Producto.objects.all()  
         
-    return render(request, 'lista_productos.html', {'productos': productos})
+    return render(request, 'lista_productos.html', {'productos': productos, 'categoria':categoria})
 
 #Se utilizara una pk para identificar el  id del producto y al seleccionarlo 
 ##Llevara a la pagina de detalle
@@ -132,6 +136,85 @@ def modificar_cantidad_carrito(request, elemento_id):
     # Si el formulario no es válido, redirige a la misma página del carrito
     return redirect('carro_compra')
 
+#----------- Compra producto ---------------------#
+#Parte 1: integracion y conexion con la API paypal
+#Parte 2: luego se agregara los datos del carro de compras
+#Parte 3: Poder almacenar la compra en la BD
+
+def compra_producto(request):
+    # Parte de la información final de pago
+    carrito = get_object_or_404(Carrito, usuario=request.user)
+    elementos = ElementoCarrito.objects.filter(carrito=carrito)
+    
+    total_carrito = 0
+
+    for elemento in elementos:
+        elemento.total = elemento.producto.precio_producto * elemento.cantidad
+        total_carrito += elemento.total
+    
+    global valorFinalCarro  # Variable global para que esta variable sea accesible por todos
+    valorFinalCarro = round(total_carrito / 940 ,2)
+
+    return render(request, 'compra_producto.html', {
+        'valorFinalCarro': valorFinalCarro, 
+        'elementos': elementos, 
+        'total_carrito': total_carrito
+    })
+
+class CrearOrden(APIView):
+    def post(self, request):
+        # Aquí se realiza la llamada a la función para crear la orden
+        orden = crearOrden(valorFinalCarro) 
+        guardar_venta(valorFinalCarro)
+        # Devuelve la respuesta directamente desde la función
+        return Response(orden, status=status.HTTP_200_OK)
+
+def crearOrden(valorFinalCarro):
+    try:
+        access_token = generateAccessToken()
+        url = "https://api-m.sandbox.paypal.com/v2/checkout/orders"
+        payload = {
+            "intent": "CAPTURE",
+            "purchase_units": [
+                {
+                    "amount": {
+                        "currency_code": "USD",
+                        "value": str(valorFinalCarro)
+                    }
+                }
+            ]
+        }
+
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {access_token}"
+        }
+        
+        response = requests.post(url, headers=headers, json=payload)
+        return response.json()    
+
+    except Exception as error:
+        print("Error:", error)
+        return None
+
+def guardar_venta(total_venta):
+    try:
+        if not total_venta:
+            raise ValueError("El valor de 'total_venta' es obligatorio.")
+
+        # Crear la venta en la base de datos
+        venta = Ventas.objects.create(
+            total_venta= total_venta
+
+        )
+        print("Venta creada:", venta)
+        return venta
+
+    except Exception as e:
+        print(f"Error al guardar la venta: {e}")
+        return None
+
+ 
 def inicio_sesion(request):
     form = InicioSesion()
     if request.method == 'POST':
@@ -168,19 +251,8 @@ def registrar_usuario(request):
     return render(request, 'registro_cliente.html', data)
 
 
-def compra_producto(request):
-    print("-----")
-    respuesta = generateAccessToken()
-    print(respuesta)
-    return render(request,'compra_producto.html')
 
-#Parte 1: integracion y conexion con la API paypal
-#Parte 2: luego se agregara los datos del carro de compras
-#Parte 3: Poder almacenar la compra en la BD
-class CrearOrden(APIView):
-    def post(self, request):
-        orden = crearOrden('carro_productos')
-        return Response(orden, status=status.HTTP_200_OK)
+
     
 
 #views de contacto

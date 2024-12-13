@@ -9,7 +9,7 @@
     <title>PcMax</title>
     {% bootstrap_css %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'css/compra_productoo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/compra_producto-2.css' %}">
 </head>
 <body>
     <!-- Navbar -->
@@ -66,95 +66,133 @@
       </div>
   </nav>
   <!-- Fin navbar-->
-  <meta name="csrf-token" content="{{ csrf_token }}">
 
-  <!-- El scrip identifica el div y crea los botones de paypal -->
-   <form  class ="my-5 " action="">
+<br>
+<div class="d-flex mx-4">
+  <div class="div-informacion-pago-total  col-6 ">
+    <h1 class="ms-2"> Informacion de pago</h1>
+    <h2 class="ms-2">Total a pagar: <span>CLP{{ total_carrito|currency }}</span></h2>
+    <h5 class="ms-2">Total en USD: <span>${{ valorFinalCarro}}</span></h5>
 
-   </form>
-  <div id="paypal-button-container">
+  <br>
+
+  <div class=""> 
+    {% for elemento in elementos %} 
+    <div class="lista-productos d-flex"> 
+        <img src="{{ elemento.producto.imagen_producto.url }}" class="card-img-top ms-4 productoIMG" alt="{{ elemento.producto.nombre_producto }}">
+        <div class="ms-2">
+          <p class="col-12">{{ elemento.producto.nombre_producto }}</p>
+          <p class="col-12">Unidades: {{ elemento.cantidad }}</p>
+          <p class="col-12">Precio: ${{ elemento.producto.precio_producto|currency }}</p>
+        </div>
+        
+    </div> 
+    {% endfor %} 
+
   </div>
-  <p id="result-message"></p>
+ 
 
-  
-  <!-- INICIALIZAMOS LA SDK DE LA API DE PAYPAL -->
-  <script
-  src="https://www.paypal.com/sdk/js?client-id=test"
-  data-sdk-integration-source="developer-studio">
-  </script>
-  <script src="app.js"></script>
+  </div>
+  <div class="div-api-padre-paypal  p-2 col-5 mx-auto ">
+    <div class="div-img col-12 ">
+      <h3 class="text-center mt-3">Metodo de pago</h3>
+    </div>
 
-  <!--Esto esta sacado de la documentacion !Adventencia! esto deberia estar en static -->
-  <script type="module">
-    //AQUI ECONTRAMOS LOS BOTONES DE PYPAL 
-    window.paypal
-    .Buttons({
-        style: {
-            shape: "rect",
-            layout: "vertical",
-            color: "gold",
-            label: "paypal",
-             height: 40     ,  
-             width: 100,  
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <!-- El scrip identifica el div y crea los botones de paypal -->
+    <form  class ="my-5 " action="">
+    </form>
+    <div id="paypal-button-container">
+    </div>
+    <p id="result-message"></p>
+
+    <!-- INICIALIZAMOS LA SDK DE LA API DE PAYPAL -->
+    <script
+    src="https://www.paypal.com/sdk/js?client-id=test"
+    data-sdk-integration-source="developer-studio">
+    </script>
+    <!--<script src="app.js"></script>-->
+
+    <!--Esto esta sacado de la documentacion !Adventencia! esto deberia estar en static -->
+    <script type="module">
+      //AQUI ECONTRAMOS LOS BOTONES DE PYPAL 
+      window.paypal
+      .Buttons({
+          style: {
+              shape: "pill",
+              layout: "vertical",
+              color: "gold",
+              label: "pay",
+              height: 40     ,  
+              width: 100,  
+              
+
+          },
+        
+          //Esta funcion espera que hagamos click en el boton y busca en la url que definimos de la api
+          //api/order
+
+          //y de  api/orden activa la funcion de crearOrden para que devuelva el valor orden 
+        
+          async createOrder() {
             
+            
+              try {
+                const csrfToken = document.querySelector('[name=csrf-token]').content; //Problemas de proteccion
 
-        },
+                  const response = await fetch("/api/orders", {
+                      method: "POST",
+                      headers: {
+                          "Content-Type": "application/json",
+                          "X-CSRFToken": csrfToken,  //Problemas de proteccion
+
+                      },
+                               
+                        
+                      // use the "body" param to optionally pass additional order information
+                      // like product ids and quantities
+                      //Envia algo atravez del fetch
+                      //Aqui podemos enviar los datos del carro de compra
+                      body: JSON.stringify({
+                        
+                          cart: [
+                              {
+                                id: 1212, 
+                                quantity: 1, 
+                                price: 20.00 
+                                
+                              },
+                          ],
+                      }), 
+                  });
+
+                  const orderData = await response.json();
+
+                  if (orderData.id) {
+                    console.log(orderData)
+                      return orderData.id;
+                  }
+                  const errorDetail = orderData?.details?.[0];
+                  const errorMessage = errorDetail
+                      ? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
+                      : JSON.stringify(orderData);
+
+                  throw new Error('aaa',errorMessage);
+              } catch (error) {
+                  console.error('aaa',error);
+                  // resultMessage(`Could not initiate PayPal Checkout...<br><br>${error}`);
+              }
+          } ,
+
+        }//el render que muestra los botones a la interfaz (activa la ID del div)
+    
+      ).render("#paypal-button-container"); 
       
-        //Esta funcion espera que hagamos click en el boton y busca en la url que definimos de la api
-        //api/order
+    </script>
+  </div>
+</div>
 
-        //y de  api/orden activa la funcion de crearOrden para que devuelva el valor orden 
-       
-        async createOrder() {
-            try {
-              const csrfToken = document.querySelector('[name=csrf-token]').content; //Problemas de proteccion
-
-                const response = await fetch("/api/orders", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRFToken": csrfToken,  //Problemas de proteccion
-
-                    },
-                    // use the "body" param to optionally pass additional order information
-                    // like product ids and quantities
-                    //Envia algo atravez del fetch
-                    //Aqui podemos enviar los datos del carro de compra
-                    body: JSON.stringify({
-                        cart: [
-                            {
-                              //Aqui deberemos integrar los datos del carro de compra 
-                                id: 1212,
-                              //Cantidad
-                                quantity: 1,
-                            },
-                        ],
-                    }),
-                });
-
-                const orderData = await response.json();
-
-                if (orderData.id) {
-                    return orderData.id;
-                }
-                const errorDetail = orderData?.details?.[0];
-                const errorMessage = errorDetail
-                    ? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
-                    : JSON.stringify(orderData);
-
-                throw new Error(errorMessage);
-            } catch (error) {
-                console.error(error);
-                // resultMessage(`Could not initiate PayPal Checkout...<br><br>${error}`);
-            }
-        } ,
-
-      }//el render que muestra los botones a la interfaz (activa la ID del div)
-  
-    ).render("#paypal-button-container"); 
-
-  </script>
-
+<br>
 </body>
 </html>
 

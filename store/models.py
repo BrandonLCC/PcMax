@@ -23,6 +23,8 @@ class Almacenes(models.Model):
 class Categorias(models.Model):
     id_categoria = models.IntegerField(primary_key=True) 
     nombre_categoria = models.CharField(max_length = 50)
+    imagen_categoria = models.ImageField(upload_to='categoria/', null=True, blank=True)
+
     def __str__(self):
         return self.nombre_categoria    
 
@@ -52,13 +54,13 @@ class Usuario(models.Model):
         return self.nombre_usuario
 
 class Ventas(models.Model):
-    id_venta = models.IntegerField(primary_key = True)
+    id_venta = models.AutoField(primary_key=True)
     fecha_venta = models.DateTimeField(auto_now_add=True)
-    total_venta = models.IntegerField
-    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    total_venta = models.IntegerField()
+    #id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
 class DetalleVentas(models.Model):
-    id_detalle_venta = models.IntegerField(primary_key = True)
+    id_detalle_venta = models.AutoField(primary_key=True)
     id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     id_venta = models.ForeignKey(Ventas, on_delete=models.CASCADE)
     cantidad_producto = models.IntegerField()  
@@ -89,7 +91,7 @@ class CarritoProducto(models.Model):
     carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.PositiveIntegerField(default=1)
-
+ 
     def __str__(self):
         return f"{self.producto.nombre_producto} - {self.cantidad} unidades"
     

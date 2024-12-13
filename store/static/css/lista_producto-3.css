@@ -119,6 +119,40 @@
 }
  
 /* Fin navbar */
+.div-img-lista-productos {
+    background-color: var(--color-2-empresa);
+    display: flex; 
+    justify-content: flex-end;
+    align-items: center;
+    
+}
+
+
+.primera-imagen-list {
+    width: 70%;
+    height: 300px; 
+    object-fit: cover; 
+    max-width: 100%;
+}
+
+.div-titulo-1  {
+    position: absolute; 
+    padding-left: 50px;
+    font-size: 50px;
+}
+
+.titulo-1  {
+    color: var(--color-blanco);
+    font-size: 60px;
+    box-shadow: 0px 0px 10px black;
+    z-index: 2;
+}
+
+
+
+.div-flujo-links-a {
+    background-color: var(--color-2-empresa);
+}
 
 .flujo-link-a {
     color: var(--color-1-empresa);
@@ -131,10 +165,22 @@
     
 }
 
-
+ 
 
 /* Card de los productos */
+.titulo-producto {
+   background-color: var(--color-2-empresa);
+    color: var(--color-blanco);
+    margin: 0;
+   
 
+}
+
+
+.subtitulo-producto{
+   /* background: linear-gradient(85deg, #44ff44, #fff200); 
+*/
+}
 
 .card {
     border: 1px solid black;
