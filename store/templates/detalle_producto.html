@@ -131,11 +131,22 @@
             </div>
 
             <div class="div-texto-padre-producto col-md-6 ">
-                <h1 class="titulo-producto" style="text-align: center;" >{{ producto.nombre_producto  }}</h1><br>
-                <br>
+                <h1 class="titulo-producto" style="text-align: center;" >{{ producto.nombre_producto  }}</h1>
+               
+          <div class="detalle-producto mt-4">
+    <div class="precio-stock-container d-flex flex-column align-items-start">
+        <div class="precio-stock-item mb-2">
+            <h3 class="text-primary m-0">Precio <span class="fs-5 fw-bold text-success m-0"> $ {{ producto.precio_producto|currency }} </span></h3>
+            
+        </div>
+        <div class="precio-stock-item">
+            <h3 class="text-primary m-0">Stock  <span class="fs-5 fw-bold text-success m-0"> {{ producto.cantidad_producto }}</span></h3></h3>
+         <br>
                 
-                <p class="precio" >Precio: ${{ producto.precio_producto|currency  }}</p>
-                <p class="stockk"  >Stock: {{ producto.cantidad_producto}}</p>      
+            
+        </div>
+    </div>
+</div>    
                 <!-- Mostrar mensajes de error -->
                 {% if messages %}
                 <div class="alert alert-danger" role="alert">
@@ -147,7 +158,7 @@
                 </div>
                 {% endif %}
                 <div class="div-medio-de-pago  bg-primary">
-                  <h6 style="text-align: center;">Medios de pago</h6>
+                  <h6 style="text-align: center; color: rgb(255, 255, 255);">Medios de Pago</h6>
                   <img width="1%"  src="{% static './images/metodo-de-pago.png'%}" class="img-pago col-12 " alt="...">
 
                 </div>
@@ -167,20 +178,16 @@
 
     
     <section class="container ">
-      <div class="d-flex">
-        <div class="col-5">
+      
+      
+          
+        
+      </div>
+      <div class="card">
+        <div class="card-header">
           <h3 class="">Descripción</h3>
-          <p class="categoria ">{{ producto.descripcion_producto }}</p>
-          <p class="categoria ">Categoria: {{ producto.id_categoria}}</p>
-  
-          <p>El producto se encuentra en esta ubicacion:</p>
-          <p class="categoria ">{{ producto.id_almacen }}</p>
-          <p class="categoria ">Dirección actual: {{ producto.id_almacen.direccion_almacen }}</p>
-          <p class="categoria ">Si el producto se encuentra serca de tu ubicacion, el envio sera mas rapido y seguro!</p>
         </div>
-
-        <div class="col-6">
-          <h3 class="">Descripción</h3>
+        <div class="card-body">
           <p class="categoria ">{{ producto.descripcion_producto }}</p>
           <p class="categoria ">Categoria: {{ producto.id_categoria}}</p>
   
@@ -188,9 +195,9 @@
           <p class="categoria ">{{ producto.id_almacen }}</p>
           <p class="categoria ">Dirección actual: {{ producto.id_almacen.direccion_almacen }}</p>
           <p class="categoria ">Si el producto se encuentra serca de tu ubicacion, el envio sera mas rapido y seguro!</p>
+        
         </div>
       </div>
-      
       
     </section>
     

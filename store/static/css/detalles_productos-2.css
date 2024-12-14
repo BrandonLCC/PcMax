@@ -193,6 +193,8 @@
     transition: all 0.3s ease; 
     border: none;
 
+    margin-left: 10px;
+
 }
 .btn:hover {
     background: linear-gradient(85deg,  #fff200,#44ff44); 
