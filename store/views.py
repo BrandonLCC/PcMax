@@ -102,8 +102,30 @@ def carro_compra(request):
     for elemento in elementos:
         elemento.total = elemento.producto.precio_producto * elemento.cantidad
         total_carrito += elemento.total
-    
-    return render(request, 'carro_compra.html', {'elementos': elementos, 'total_carrito': total_carrito})
+
+    descuento_aplicado = 0
+    total_carrito_con_descuento = total_carrito
+
+    # Verificar si se ha enviado un código de descuento
+    if request.method == 'POST':
+        codigo_descuento = request.POST.get('codigo_descuento', '').strip()
+        if codigo_descuento == 'DESCUENTO10':  
+            descuento_aplicado = 10  
+            total_carrito_con_descuento = total_carrito - (total_carrito * descuento_aplicado / 100)
+        elif codigo_descuento == 'DESCUENTO20':
+            descuento_aplicado = 20  
+            total_carrito_con_descuento = total_carrito - (total_carrito * descuento_aplicado / 100)
+
+    # Guardar los valores en la sesión para usarlos en otras vistas
+    request.session['descuento_aplicado'] = descuento_aplicado
+    request.session['total_carrito_con_descuento'] = total_carrito_con_descuento
+
+    return render(request, 'carro_compra.html', {
+        'elementos': elementos,
+        'total_carrito': total_carrito,
+        'total_carrito_con_descuento': total_carrito_con_descuento,
+        'descuento_aplicado': descuento_aplicado
+    })
 
 def eliminar_del_carrito(request, elemento_id):
     elemento = get_object_or_404(ElementoCarrito, id=elemento_id)
@@ -142,24 +164,28 @@ def modificar_cantidad_carrito(request, elemento_id):
 #Parte 3: Poder almacenar la compra en la BD
 
 def compra_producto(request):
-    # Parte de la información final de pago
+    # Obtiene el carrito del usuario
     carrito = get_object_or_404(Carrito, usuario=request.user)
+    
+    # Obtiene los elementos del carrito
     elementos = ElementoCarrito.objects.filter(carrito=carrito)
     
-    total_carrito = 0
+    # Obtiene el descuento y el total con descuento guardados en la sesión
+    descuento_aplicado = request.session.get('descuento_aplicado', 0)
+    total_carrito_con_descuento = request.session.get('total_carrito_con_descuento', 0)
 
-    for elemento in elementos:
-        elemento.total = elemento.producto.precio_producto * elemento.cantidad
-        total_carrito += elemento.total
-    
-    global valorFinalCarro  # Variable global para que esta variable sea accesible por todos
-    valorFinalCarro = round(total_carrito / 940 ,2)
+    # Convierte el total a USD si es necesario
+    global valorFinalCarro
+    valorFinalCarro = round(total_carrito_con_descuento / 940, 2)  # Convierte a USD si es necesario
 
     return render(request, 'compra_producto.html', {
-        'valorFinalCarro': valorFinalCarro, 
-        'elementos': elementos, 
-        'total_carrito': total_carrito
+        'valorFinalCarro': valorFinalCarro,  # Total en USD después del descuento
+        'elementos': elementos,  # Lista de productos en el carrito
+        'total_carrito': total_carrito_con_descuento,  # Total con descuento aplicado
+        'descuento_aplicado': descuento_aplicado  # El valor del descuento aplicado
     })
+
+
 
 class CrearOrden(APIView):
     def post(self, request):

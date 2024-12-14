@@ -115,17 +115,38 @@
 <!-- Fin NavBar-->
 
     
-    <br><br><br><br>
+    <br><br>
 
     
     <div class="container">
         <h2>Tu Carrito:</h2>
+<!-- Mostrar el total con descuento si hay uno -->
 
         <h3 class="my-4 text-end">
             <a href="/compra_producto" class="btn btn-primary">Comprar</a>
             <span>Total del Carrito: ${{ total_carrito|currency }}</span>
+            <p>Descuento: ${{ total_carrito_con_descuento|currency }}</p>
+            <span><!-- Mostrar el total con descuento si hay uno -->
+              {% if descuento_aplicado %}
+                 
+                  
+                  <p>subtotal: ${{ total_carrito_con_descuento|currency }}</p>
+              {% else %}
+                  <p>Total a pagar: ${{ total_carrito|currency }}</p>
+              {% endif %}</span>
+
+
+
         </h3>
 
+        <form method="POST">
+          {% csrf_token %}
+          <label for="codigo_descuento">cupon de descuento:</label><br>
+          <input type="text" name="codigo_descuento" >
+          
+          <button class="btn btn-primary" type="submit">Aplicar descuento</button>
+      </form>
+      <p>Descuento aplicado: {{ descuento_aplicado }}%</p>
         <ul class="carrito-lista">
             {% for elemento in elementos %}
             <li class="carrito-item">
@@ -169,7 +190,7 @@
             {% endif %}
         </ul>
 
-        <a href="/" class="btn btn-primary">Continuar comprando</a>
+        <a href="/" class="btn btn-primary">Continuar comprando</a> <br><br><br>
     </div>
 
     {% bootstrap_javascript %}
