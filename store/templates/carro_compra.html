@@ -146,7 +146,12 @@
           
           <button class="btn btn-primary" type="submit">Aplicar descuento</button>
       </form>
-      <p>Descuento aplicado: {{ descuento_aplicado }}%</p>
+      <br>
+
+     {% if descuento_aplicado %}
+    <p>Descuento aplicado: {{ descuento_aplicado }}%</p>
+{% endif %}
+
         <ul class="carrito-lista">
             {% for elemento in elementos %}
             <li class="carrito-item">
