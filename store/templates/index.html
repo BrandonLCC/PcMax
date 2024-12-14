@@ -18,7 +18,7 @@
       {% bootstrap_javascript %}
       <!-- CSS -->
       <link rel="icon" type="image/png" href="{% static 'images/logo-empresa.jpg' %}">
-      <link rel="stylesheet" href="{% static 'css/style-3.css' %}">
+      <link rel="stylesheet" href="{% static 'css/style-4.css' %}">
 
 </head>
 <body>
@@ -112,7 +112,6 @@
               <div class="div-estado-usuario col-4 text-center ms-2">
                 {% if estado == 'Seccion abierta' %}
                     <p class="estadoUsuario1">𒊹 Cuenta activa
-                      <ul class="dropdown-menu">
                     </p>
                 {% else %}
                     <p class="estadoUsuario2">𒊹 Sin Cuenta</p>
@@ -145,6 +144,8 @@
   <div class="text-center bg-primary py-5">
     {% if estado == 'Seccion abierta' %}
         <p>¡Bienvenido, {{ user.username }}! Ahora mismo te encuentras logeado y listo para comprar tus productos favoritos</p>
+        <a class="nav-link active" href="{% url 'logout' %}">Cerrar sesion</a>
+
     {% else %}
         <p>Por favor, inicie sesión para continuar.</p>
     {% endif %}
