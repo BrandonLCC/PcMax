@@ -7,6 +7,8 @@
     <title>Product List</title>
     {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %}
     <link rel="stylesheet" href="{% static 'css/inicio-sesionx.css' %}" />
+    <link rel="icon" type="image/png" href="{% static 'images/logo-empresa.jpg' %}">
+
   </head>
   <body>
     <section class="formulario-padre col-10 mx-auto">
@@ -27,46 +29,23 @@
         </div>
         <!--DIV 2-->
         <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
+          
+          {% block content %}
           <!-- COMIENZO FORMULARIO -->
-          <form id="miFormulario" class="col-12" method="post">
+          <form id="miFormulario" method="post" class="col-12">
             {% csrf_token %}
-            <div class="mx-auto">
-              <h1 class="titulo text-center py-4">Inicio sesion</h1>
-              <p id="validar" class="sub-titulo text-center py-1">
-                ¡Siempre manten tus datos vinculados con tu correo de gmail por
-                tu seguridad!
-              </p>
-            </div>
-            <div
-              class="body-formulario col-11 col-sm-9 col-md-8 col-lg-8 my-4 mx-auto"
-            >
-              <div class="mb-3 col-10 mx-auto mt-5">
-                <label for="exampleInputEmail1" class="form-label"
-                  >Nombre de usuario</label
-                >
-                {{ form.nombre_usuario }}
-              </div>
-              <div class="mb-3 col-10 mx-auto pb-2">
-                <label for="exampleInputPassword1 " class="form-label mt-4"
-                  >Contraseña</label
-                >
-                {{ form.contraseña_usuario }}
-              </div>
-              <a class="link-a-cuenta-creada mb-3" href=""
-                >¿No tienes una cuenta creada?</a
-              >
-              <!-- boton submit-->
-              <div class="div-footer-formulario col-12 mx-auto">
-                <button
-                  type="submit"
-                  class="boton-registro px-4 py-2 mb-4 mx-auto"
-                >
-                  Iniciar sesion
-                </button>
-              </div>
-            </div>
-          </form>
+            
+            <!-- Renderiza el formulario completo -->
+            {{ form.as_p }}
+            
+            <!-- Botón de enviar -->
+            <button type="submit" id="submit" class="btn btn-primary">Iniciar sesión</button>
+        </form>
+        {% endblock %}
           <!-- FIN FORMULARIO-->
+
+
+
         </div>
       </div>
     </section>

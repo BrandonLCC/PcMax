@@ -52,12 +52,13 @@ class Usuario(models.Model):
      
     def __str__(self): 
         return self.nombre_usuario
-
+ 
 class Ventas(models.Model):
     id_venta = models.AutoField(primary_key=True)
     fecha_venta = models.DateTimeField(auto_now_add=True)
     total_venta = models.IntegerField()
-    #id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    #Falta
+    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
 class DetalleVentas(models.Model):
     id_detalle_venta = models.AutoField(primary_key=True)
@@ -100,5 +101,10 @@ class ElementoCarrito(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.PositiveIntegerField(default=1)
 
+#AQUI GUARDo lo productos favoritos
+class Favorito(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    fecha_agregado = models.DateTimeField(auto_now_add=True)
 
 

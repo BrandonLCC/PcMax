@@ -16,7 +16,8 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'css/lista_producto-3.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lista_producto-4.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'images/logo-empresa.jpg' %}">
 
 </head>
 <body>
@@ -163,6 +164,13 @@
                         <p class="stock-productos card-text col-6 mx-auto text-center py-1"><b class="text-unidades">Unidades: </b>{{ producto.cantidad_producto }}</p>
                         <div class="div-boton mx-auto">
                             <a class="btn-link-a px-5" href="{% url 'detalle_producto' producto.id %}">Ir al carro</a>
+                            <!-- Boton guardar como favorito -->
+                            <form method="post" action="{% url 'guardar_favorito' producto.id %}">
+                              {% csrf_token %}
+                              <button type="submit" class="btn-fav-producto">
+                                  <i class="fa fa-heart"></i> <!-- Ícono de corazón -->
+                              </button>
+                          </form>
                         </div>
                     </div>
                 </div>

@@ -19,7 +19,18 @@ from django.contrib import messages
 
 def home(request):
     productos = Producto.objects.select_related('id_categoria').all()[:4]
-    return render(request, 'index.html' ,{'productos': productos})
+    
+    user = request.user
+
+    if user.is_active:
+        estado = 'Seccion abierta'
+    else:
+        estado = 'false'
+
+    return render(request, 'index.html' ,{'productos': productos,'estado':estado})
+
+  
+
 
 #Permite mostrar todos los datos usando ORM de forma mas facil: object.all
 #Tambien podemos crear views con SQL crudo por ejmplo: select * from
@@ -103,8 +114,30 @@ def carro_compra(request):
     for elemento in elementos:
         elemento.total = elemento.producto.precio_producto * elemento.cantidad
         total_carrito += elemento.total
-    
-    return render(request, 'carro_compra.html', {'elementos': elementos, 'total_carrito': total_carrito})
+
+    descuento_aplicado = 0
+    total_carrito_con_descuento = total_carrito
+
+    # Verificar si se ha enviado un código de descuento
+    if request.method == 'POST':
+        codigo_descuento = request.POST.get('codigo_descuento', '').strip()
+        if codigo_descuento == 'DESCUENTO10':  
+            descuento_aplicado = 10  
+            total_carrito_con_descuento = total_carrito - (total_carrito * descuento_aplicado / 100)
+        elif codigo_descuento == 'DESCUENTO20':
+            descuento_aplicado = 20  
+            total_carrito_con_descuento = total_carrito - (total_carrito * descuento_aplicado / 100)
+
+    # Guardar los valores en la sesión para usarlos en otras vistas
+    request.session['descuento_aplicado'] = descuento_aplicado
+    request.session['total_carrito_con_descuento'] = total_carrito_con_descuento
+
+    return render(request, 'carro_compra.html', {
+        'elementos': elementos,
+        'total_carrito': total_carrito,
+        'total_carrito_con_descuento': total_carrito_con_descuento,
+        'descuento_aplicado': descuento_aplicado
+    })
 
 def eliminar_del_carrito(request, elemento_id):
     elemento = get_object_or_404(ElementoCarrito, id=elemento_id)
@@ -134,34 +167,52 @@ def modificar_cantidad_carrito(request, elemento_id):
 
     return redirect('carro_compra')
 
+def guardar_favorito(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    favorito, created = Favorito.objects.get_or_create(usuario=request.user, producto=producto)
+    if not created:
+        favorito.delete()
+        mensaje = "El producto ha sido eliminado de favoritos."
+    else:
+        mensaje = "El producto ha sido agregado a favoritos."
+    return redirect('lista_productos')
+
+    class Meta:
+        unique_together = ('usuario', 'producto')  
+
 #----------- Compra producto ---------------------#
 #Parte 1: integracion y conexion con la API paypal
 #Parte 2: luego se agregara los datos del carro de compras
 #Parte 3: Poder almacenar la compra en la BD
 
 def compra_producto(request):
+    # Obtiene el carrito del usuario
     carrito = get_object_or_404(Carrito, usuario=request.user)
+    
+    # Obtiene los elementos del carrito
     elementos = ElementoCarrito.objects.filter(carrito=carrito)
     
-    total_carrito = 0
+    # Obtiene el descuento y el total con descuento guardados en la sesión
+    descuento_aplicado = request.session.get('descuento_aplicado', 0)
+    total_carrito_con_descuento = request.session.get('total_carrito_con_descuento', 0)
 
-    for elemento in elementos:
-        elemento.total = elemento.producto.precio_producto * elemento.cantidad
-        total_carrito += elemento.total
-    
-    global valorFinalCarro 
-    valorFinalCarro = round(total_carrito / 940 ,2)
+    # Convierte el total a USD si es necesario
+    global valorFinalCarro
+    valorFinalCarro = round(total_carrito_con_descuento / 940, 2)  # Convierte a USD si es necesario
 
     return render(request, 'compra_producto.html', {
-        'valorFinalCarro': valorFinalCarro, 
-        'elementos': elementos, 
-        'total_carrito': total_carrito
+        'valorFinalCarro': valorFinalCarro,  # Total en USD después del descuento
+        'elementos': elementos,  # Lista de productos en el carrito
+        'total_carrito': total_carrito_con_descuento,  # Total con descuento aplicado
+        'descuento_aplicado': descuento_aplicado  # El valor del descuento aplicado
     })
+
+
 
 class CrearOrden(APIView):
     def post(self, request):
         orden = crearOrden(valorFinalCarro) 
-        guardar_venta(valorFinalCarro)
+        guardar_venta(valorFinalCarro,request)
         return Response(orden, status=status.HTTP_200_OK)
 
 def crearOrden(valorFinalCarro):
@@ -192,19 +243,36 @@ def crearOrden(valorFinalCarro):
         print("Error:", error)
         return None
 
-def guardar_venta(total_venta):
+def guardar_venta(total_venta, request):
+    form = RegistroUsuarioForm(request.POST)
+
     try:
         if not total_venta:
             raise ValueError("El valor de 'total_venta' es obligatorio.")
-
-        venta = Ventas.objects.create(
-            total_venta= total_venta
-
-        )
-        print("Venta creada:", venta)
-        return venta
         
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            
+            # Obtener la instancia del usuario
+            try:
+                usuario = Usuario.objects.get(nombre_usuario=username)
+            except Usuario.DoesNotExist:
+                print(f"Error: Usuario con nombre de usuario '{username}' no encontrado.")
+                return None
+            
+            user_id = usuario.id
 
+            # Crear la venta con la ID del usuario
+            venta = Ventas.objects.create(
+                total_venta=total_venta,
+                id_usuario=user_id  # Pasar la ID del Usuario
+            )
+            print("Venta creada:", venta)
+            return venta
+
+    except ValueError as ve:
+        print(f"ValorError: {ve}")
+        return None
     except Exception as e:
         print(f"Error al guardar la venta: {e}")
         return None
@@ -232,18 +300,28 @@ def inicio_sesion(request):
 def registrar_usuario(request):
    
     if request.method == 'POST':
-            form = UserCreationForm(request.POST)
+            form = RegistroUsuarioForm(request.POST)
             if form.is_valid():
                 username = form.cleaned_data['username']
+                email = form.cleaned_data['email']
+                password2 = form.cleaned_data['password2']
                 form.save()  # Guarda usuario 
+                usuario = Usuario.objects.create(
+                    nombre_usuario = username,
+                    gmail_usuario = email,
+                    contraseña_usuario = password2,
+
+                )
                 messages.success(request, f"El usuario:{username} ha sido creado")
                 return redirect('home')
     else:
-        form = UserCreationForm()
-        messages.success(request, "Error al registrarse")
+        form = RegistroUsuarioForm()
 
     context = { 'form' : form }
     return render(request, 'registro_cliente.html',context )
+
+
+        
 
 
 #views de contacto

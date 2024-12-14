@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
 from .views import CrearOrden
+from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -15,7 +16,8 @@ urlpatterns = [
     path('contacto/', views.contacto_cliente  , name='contacto_cliente'),
     path('guia_y_tutorial/', views.guia_tutorial, name='guia_tutorial'),
     path('carro/modificar/<int:elemento_id>/', views.modificar_cantidad_carrito, name='modificar_cantidad_carrito'),
-    path('inicio_sesion/', views.inicio_sesion, name='inicio_sesion'),
+    path('logout/', LogoutView.as_view(next_page='home'), name='logout'),
+    path('inicio_sesion/', LoginView.as_view(template_name='inicio_sesion.html'), name='inicio_sesion'),
     path('registro_cliente/', views.registrar_usuario, name='registro_cliente'),
     path('compra_producto/', views.compra_producto, name='compra_producto'),
     path('api/orders', CrearOrden.as_view(), name='crear-orden'),
@@ -25,5 +27,6 @@ urlpatterns = [
     path('contacto/<int:pk>/eliminar/',views.contacto_eliminar, name='contacto_eliminar'),
     path('contactos/',views.contacto_lista, name='contacto_lista'),
     path('contacto_confirmacion/', views.contacto_confirmacion, name='contacto_confirmacion'),
+    path('favorito/<int:producto_id>/', views.guardar_favorito, name='guardar_favorito'),
 
    ]

@@ -18,7 +18,7 @@
       {% bootstrap_javascript %}
       <!-- CSS -->
       <link rel="icon" type="image/png" href="{% static 'images/logo-empresa.jpg' %}">
-      <link rel="stylesheet" href="{% static 'css/styleyyeeee8.css' %}">
+      <link rel="stylesheet" href="{% static 'css/style-3.css' %}">
 
 </head>
 <body>
@@ -109,10 +109,23 @@
             <form class="from-buscar d-flex ms-2" method="get">
               <input class="input-buscar-producto form-control me-2" placeholder="Busca un Producto" aria-label="Search">
               <button class="btn btn-buscar px-3 py-2" type="submit">Buscar</button>
+              <div class="div-estado-usuario col-4 text-center ms-2">
+                {% if estado == 'Seccion abierta' %}
+                    <p class="estadoUsuario1">𒊹 Cuenta activa
+                      <ul class="dropdown-menu">
+                    </p>
+                {% else %}
+                    <p class="estadoUsuario2">𒊹 Sin Cuenta</p>
+                {% endif %}
+              </div>
+              </div>
             </form>
           </ul>
+         
         </div>
+        
       </div>
+      
   </nav>
 
   <!-- CARRUSEL -->
@@ -128,8 +141,18 @@
       </div>
   </div>
 
+  
+  <div class="text-center bg-primary py-5">
+    {% if estado == 'Seccion abierta' %}
+        <p>¡Bienvenido, {{ user.username }}! Ahora mismo te encuentras logeado y listo para comprar tus productos favoritos</p>
+    {% else %}
+        <p>Por favor, inicie sesión para continuar.</p>
+    {% endif %}
+  </div>
+
   <br class="col-10 mx-auto">
 
+   
   <!-- PRODUCTOS  -->
    <section class="seccion-productos col-11 col-sm-11 col-md-11  mx-auto my-5">
     <h2 class="titulo-producto py-2 ps-5">
