@@ -177,8 +177,8 @@ def guardar_favorito(request, producto_id):
         mensaje = "El producto ha sido agregado a favoritos."
     return redirect('lista_productos')
 
-    class Meta:
-        unique_together = ('usuario', 'producto')  
+class Meta:
+    unique_together = ('usuario', 'producto')  
 
 #----------- Compra producto ---------------------#
 #Parte 1: integracion y conexion con la API paypal
@@ -187,25 +187,24 @@ def guardar_favorito(request, producto_id):
 
 @login_required
 def compra_producto(request):
-    # Obtiene el carrito del usuario
+    #  el carrito del usuario
     carrito = get_object_or_404(Carrito, usuario=request.user)
     
-    # Obtiene los elementos del carrito
+    #  los elementos del carrito
     elementos = ElementoCarrito.objects.filter(carrito=carrito)
     
-    # Obtiene el descuento y el total con descuento guardados en la sesión
     descuento_aplicado = request.session.get('descuento_aplicado', 0)
     total_carrito_con_descuento = request.session.get('total_carrito_con_descuento', 0)
 
-    # Convierte el total a USD si es necesario
+    # el total a USD 
     global valorFinalCarro
-    valorFinalCarro = round(total_carrito_con_descuento / 940, 2)  # Convierte a USD si es necesario
+    valorFinalCarro = round(total_carrito_con_descuento / 940, 2)  
 
     return render(request, 'compra_producto.html', {
-        'valorFinalCarro': valorFinalCarro,  # Total en USD después del descuento
-        'elementos': elementos,  # Lista de productos en el carrito
-        'total_carrito': total_carrito_con_descuento,  # Total con descuento aplicado
-        'descuento_aplicado': descuento_aplicado  # El valor del descuento aplicado
+        'valorFinalCarro': valorFinalCarro, 
+        'elementos': elementos,  
+        'total_carrito': total_carrito_con_descuento,  
+        'descuento_aplicado': descuento_aplicado  
     })
 
 
@@ -245,31 +244,20 @@ def crearOrden(valorFinalCarro):
         return None
 
 def guardar_venta(total_venta, request):
-    form = RegistroUsuarioForm(request.POST)
 
     try:
         if not total_venta:
             raise ValueError("El valor de 'total_venta' es obligatorio.")
         
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            
-            # Obtener la instancia del usuario
-            try:
-                usuario = Usuario.objects.get(nombre_usuario=username)
-            except Usuario.DoesNotExist:
-                print(f"Error: Usuario con nombre de usuario '{username}' no encontrado.")
-                return None
-            
-            user_id = usuario.id
+        usuario = Usuario.objects.get(gmail_usuario=request.user.email)  # Ajusta según tu lógica
+        
+        venta = Ventas.objects.create(
+            total_venta=total_venta,
+            id_usuario_id=usuario.id  
+        )
 
-            # Crear la venta con la ID del usuario
-            venta = Ventas.objects.create(
-                total_venta=total_venta,
-                id_usuario=user_id  # Pasar la ID del Usuario
-            )
-            print("Venta creada:", venta)
-            return venta
+        print("Venta creada:", venta)
+        return venta
 
     except ValueError as ve:
         print(f"ValorError: {ve}")
@@ -277,26 +265,6 @@ def guardar_venta(total_venta, request):
     except Exception as e:
         print(f"Error al guardar la venta: {e}")
         return None
-
- 
-def inicio_sesion(request):
-    form = InicioSesion()
-    if request.method == 'POST':
-        form = InicioSesion(request.POST)
-        if form.is_valid():
-            nombre = form.cleaned_data['nombre_usuario']
-            contraseña = form.cleaned_data['contraseña_usuario']
-            user = authenticate(request, username=nombre, password=contraseña)
-            if user is not None:
-                login(request, user)
-                print(f"Usuario {nombre} autenticado correctamente.")
-
-                return redirect('home')
-            else:
-                form.add_error(None, 'Nombre de usuario o contraseña incorrectos.')
-    else:
-        form = InicioSesion()
-    return render(request, 'inicio_sesion.html', {'form': form})
 
 def registrar_usuario(request):
    
@@ -320,9 +288,6 @@ def registrar_usuario(request):
 
     context = { 'form' : form }
     return render(request, 'registro_cliente.html',context )
-
-
-        
 
 
 #views de contacto
