@@ -185,6 +185,7 @@ def guardar_favorito(request, producto_id):
 #Parte 2: luego se agregara los datos del carro de compras
 #Parte 3: Poder almacenar la compra en la BD
 
+@login_required
 def compra_producto(request):
     # Obtiene el carrito del usuario
     carrito = get_object_or_404(Carrito, usuario=request.user)
