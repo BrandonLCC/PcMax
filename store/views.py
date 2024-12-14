@@ -1,5 +1,4 @@
 from django.contrib import messages
-
 from django.shortcuts import render, redirect
 from .models import Producto, Carrito , CarritoProducto as ElementoCarrito
 from .models import Categorias
@@ -14,6 +13,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from .functions import * 
 from .models import Ventas
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 # Creacion de  las vistas 
 
 def home(request):
@@ -113,8 +114,6 @@ def eliminar_del_carrito(request, elemento_id):
 
 #agregar modificar cantidad de stock producto
 
-
-
 def modificar_cantidad_carrito(request, elemento_id):
     elemento = get_object_or_404(ElementoCarrito, id=elemento_id)
     if request.method == 'POST':
@@ -133,7 +132,6 @@ def modificar_cantidad_carrito(request, elemento_id):
     else:
         form = CantidadProductoForm(initial={'cantidad': elemento.cantidad})
 
-    # Si el formulario no es válido, redirige a la misma página del carrito
     return redirect('carro_compra')
 
 #----------- Compra producto ---------------------#
@@ -142,7 +140,6 @@ def modificar_cantidad_carrito(request, elemento_id):
 #Parte 3: Poder almacenar la compra en la BD
 
 def compra_producto(request):
-    # Parte de la información final de pago
     carrito = get_object_or_404(Carrito, usuario=request.user)
     elementos = ElementoCarrito.objects.filter(carrito=carrito)
     
@@ -152,7 +149,7 @@ def compra_producto(request):
         elemento.total = elemento.producto.precio_producto * elemento.cantidad
         total_carrito += elemento.total
     
-    global valorFinalCarro  # Variable global para que esta variable sea accesible por todos
+    global valorFinalCarro 
     valorFinalCarro = round(total_carrito / 940 ,2)
 
     return render(request, 'compra_producto.html', {
@@ -163,10 +160,8 @@ def compra_producto(request):
 
 class CrearOrden(APIView):
     def post(self, request):
-        # Aquí se realiza la llamada a la función para crear la orden
         orden = crearOrden(valorFinalCarro) 
         guardar_venta(valorFinalCarro)
-        # Devuelve la respuesta directamente desde la función
         return Response(orden, status=status.HTTP_200_OK)
 
 def crearOrden(valorFinalCarro):
@@ -202,13 +197,13 @@ def guardar_venta(total_venta):
         if not total_venta:
             raise ValueError("El valor de 'total_venta' es obligatorio.")
 
-        # Crear la venta en la base de datos
         venta = Ventas.objects.create(
             total_venta= total_venta
 
         )
         print("Venta creada:", venta)
         return venta
+        
 
     except Exception as e:
         print(f"Error al guardar la venta: {e}")
@@ -235,25 +230,21 @@ def inicio_sesion(request):
     return render(request, 'inicio_sesion.html', {'form': form})
 
 def registrar_usuario(request):
-    data = {
-        'form': RegistroUsuarioForm()
-    }
-
+   
     if request.method == 'POST':
-        form = RegistroUsuarioForm(request.POST)
-        if form.is_valid(): 
-            form.save()  # Guarda usuario 
-            messages.success(request, '¡Registro exitoso!')
-            return redirect(to='home')
-        else:
-            form = RegistroUsuarioForm()
-  
-    return render(request, 'registro_cliente.html', data)
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                username = form.cleaned_data['username']
+                form.save()  # Guarda usuario 
+                messages.success(request, f"El usuario:{username} ha sido creado")
+                return redirect('home')
+    else:
+        form = UserCreationForm()
+        messages.success(request, "Error al registrarse")
 
+    context = { 'form' : form }
+    return render(request, 'registro_cliente.html',context )
 
-
-
-    
 
 #views de contacto
 def contacto_nuevo(request):

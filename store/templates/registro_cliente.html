@@ -11,9 +11,8 @@
     <link rel="stylesheet" href="{% static 'css/registro.css' %}">
 </head>
 <body>
-
+ 
     <!--<img src="{% static 'images/linkIMG' %}" class="imagen-fondo   w-100 " alt="...">-->
-
 <section class = "formulario-padre col-10 mx-auto">
     <div class="fromulario-hijo col-12 mx-auto ">
         <!--DIV 1-->
@@ -29,40 +28,30 @@
         <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
             <!-- COMIENZO FORMULARIO -->
              <!-- METODO POST IMPORTANTE PARA ENVIAR LOS DATOS DEL USUARIO -->
+             {% if messages %}
+            {% for message in messages %}
+            <div class="notificaction {{message.tags}}">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+
+             {% block content %}
+             
              <form id="miFormulario" method="post" class="col-12">
-                {% csrf_token %}
-                <div class="mx-auto">
-                    <h1 class="titulo text-center py-4">Crea una cuenta nueva</h1>
-                    <p class="sub-titulo text-center py-1" id="validar">No olvides que debes ingresar una contraseña segura para mantener la seguridad de tu cuenta</p>
-                </div>
-                <div class="body-formulario col-11 col-sm-9 col-md-8 col-lg-8 my-4 mx-auto">
-                    
-                    <div class="mb-3 col-10 mx-auto">
-                        <label class="form-label mt-3">Nombre de usuario</label>
-                        {{ form.nombre_usuario }} 
-                    </div>
-                    <div class="mb-3 col-10 mx-auto">
-                        <label for="exampleInputEmail1" class="form-label">Ingresa tu gmail</label>
-                        {{ form.gmail_usuario }} 
-                    </div>
-                    <div class="mb-3 col-10 mx-auto pb-2">
-                        <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                        {{ form.contraseña_usuario }} 
-                    </div>
-                    <a class="link-a-cuenta-creada" href="{% url 'inicio_sesion' %}">¿Ya tienes una cuenta creada?</a>
-                    <!-- Botón submit -->
-                    <div class="div-footer-formulario col-12 mx-auto">
-                        <button type="submit" class="boton-registro px-4 py-2 mb-4 mx-auto">Crear cuenta</button>
-                    </div>
-                </div>
-            </form>
-            
-            <!-- FIN FORMULARIO-->
+                 {% csrf_token %}
+                 
+                 <!-- Renderiza el formulario completo -->
+                 {{ form.as_p }}
+                 
+                 <!-- Botón de enviar -->
+                 <button type="submit" id="submit" class="btn btn-primary">Registrarse</button>
+             </form>
+             {% endblock %}
+             
         </div>
     </div>
 </section>
-
-<script src="{% static 'js/validacion-formulario.js' %}"></script>
 
 </body>
 </html>
