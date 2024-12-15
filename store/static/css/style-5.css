@@ -179,6 +179,20 @@ h1 {
 
 }
 
+
+.div-bienvenida-usuario  {
+    position: relative;
+    background-color: var(--color-gris-2);
+}
+.texto-usuario-bienvenida {
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+}
+
+.boton-usuario-bienvenida {
+    background-color: #02ff02;
+}
+
 /* PRODUCTOS */
 .seccion-productos {
     position: relative;
@@ -210,7 +224,7 @@ h1 {
     z-index: 2;
     box-shadow: 5px 5px 10px 1px #dcdcdc;
     
-}
+} 
 
 .card:hover {
     transform: translateY(-10px); 
@@ -438,6 +452,9 @@ h1 {
 /* TE GARANTIZAMOS */
 .seccion-crear-cuenta {
     border-radius: 10px;
+    background-color: var(--color-gris-2);
+    border: 1px solid #cacaca;
+
 }
 
 .titulo-garantizamos {
@@ -453,13 +470,13 @@ h1 {
 .div-garantizamos {
     position: relative;
     display: flex;
-   
 }
 
 .div-seguridad {
     background-color: var(--color-blanco);
     margin-top: 10px;
     margin-bottom: 30px;
+    box-shadow: 5px 5px 10px 1px #dcdcdc;
 
 }
 
@@ -469,6 +486,7 @@ h1 {
     border-bottom-left-radius: 10px;
     margin-top: 10px;
     margin-bottom: 30px;
+    box-shadow: 5px 5px 10px 1px #dcdcdc;
 
 }
 
@@ -478,6 +496,7 @@ h1 {
     border-bottom-right-radius: 10px;
     margin-top: 10px;
     margin-bottom: 30px;
+    box-shadow: 5px 5px 10px 1px #dcdcdc;
 
 }
 
@@ -502,12 +521,23 @@ h1 {
     justify-content: center;
     align-items: center;     
     gap: 10px;          
+    background-color: var(--color-gris-2);
+    border: 1px solid #cacaca;    text-decoration: none;
+    font-weight: 550;
+    color: var(--color-blanco);
+    padding: 10px;
+    transition: all 0.3s ease;    
+}
+
+.button-ayudaa {
     background: linear-gradient(85deg, #44ff44, #fff200); 
     text-decoration: none;
     font-weight: 550;
     color: var(--color-blanco);
     padding: 10px;
-    transition: all 0.3s ease;    
+    transition: all 0.3s ease; 
+    width: 200px;
+    text-align: center;
 }
 
 /* PRESENTACION */
@@ -521,7 +551,8 @@ h1 {
 .div-texto-presentacion {
      border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
-
+    background-color: var(--color-gris-2);
+    border: 1px solid #cacaca;
 }
 
 .img-tienda-pcMax {

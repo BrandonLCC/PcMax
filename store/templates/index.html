@@ -18,7 +18,7 @@
       {% bootstrap_javascript %}
       <!-- CSS -->
       <link rel="icon" type="image/png" href="{% static 'images/logo-empresa.jpg' %}">
-      <link rel="stylesheet" href="{% static 'css/style-4.css' %}">
+      <link rel="stylesheet" href="{% static 'css/style-5.css' %}">
 
 </head>
 <body>
@@ -141,13 +141,13 @@
   </div>
 
   
-  <div class="text-center bg-primary py-5">
+  <div class=" div-bienvenida-usuario text-center  py-5">
     {% if estado == 'Seccion abierta' %}
-        <p>¡Bienvenido, {{ user.username }}! Ahora mismo te encuentras logeado y listo para comprar tus productos favoritos</p>
-        <a class="nav-link active" href="{% url 'logout' %}">Cerrar sesion</a>
+        <p class="texto-usuario-bienvenida">¡Bienvenido, {{ user.username }}! Ahora mismo te encuentras logeado y listo para comprar tus productos favoritos</p>
+        <a class="boton-usuario-bienvenida mx-auto col-5 nav-link active mt-5" href="{% url 'logout' %}">Cerrar sesion</a>
 
     {% else %}
-        <p>Por favor, inicie sesión para continuar.</p>
+        <p class="texto-usuario-bienvenida" >Por favor, inicie sesión para continuar.</p>
     {% endif %}
   </div>
 
@@ -316,18 +316,18 @@
       <h4>ofertas y descuentos</h4>
         <p>descuentos</p>
     </section>-->
-    <!-- SECCION GARANTIZAMOS -->
+    <!-- SECCION GARANTIZAMOS --> 
     <section class="seccion-crear-cuenta col-11 mx-auto my-5 ">
       <h2 class="titulo-garantizamos py-2 pb-2">PcMax te garantiza</h2>
-        <div class="div-garantizamos col-11 mx-auto row">
-          <div class="div-envios col-4 text-center  ">
+        <div class="div-garantizamos col-11 mx-auto my-4 row">
+          <div class="div-envios col-4 text-center mx-auto  ">
             <h3 class="my-2">Envios rapidos</h3>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta dicta neque explicabo deleniti sed libero vitae odit obcaecati, totam perspiciatis mollitia maiores pariatur ipsa reprehenderit vel officiis enim eos voluptatibus!s
             <div class="mt-3">
               <img src="{% static './images/camion-de-reparto.png '%}" class="img-seguridad col-12 mt-2" alt="...">
             </div>
           </div>
-          <div class="div-seguridad col-4 text-center ">
+          <div class="div-seguridad col-4 text-center mx-auto  ">
             <h3 class="my-2">Seguridad</h3>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores eveniet nulla distinctio maiores, ducimus laudantium aspernatur ad obcaecati possimus aliquid ut, quidem esse explicabo. Excepturi unde fugiat ea esse magni.
           
@@ -335,7 +335,7 @@
               <img src="{% static './images/proteger.png '%}" class="img-seguridad col-12 mt-2" alt="...">
             </div>
           </div>
-          <div class="div-cliente col-4 text-center ">
+          <div class="div-cliente col-4 text-center mx-auto  ">
             <h3 class="my-2">Servicio al cliente</h3>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed, molestiae, unde nam ut architecto minus numquam consequuntur exercitationem mollitia quisquam nulla excepturi fugiat odit voluptate illo velit voluptatibus minima totam.
             <div>
@@ -350,14 +350,12 @@
     <!-- AYUDA AL CLIENTE -->
     <section class="seccion-crear-cuenta col-11 mx-auto my-5 ">
       <div class="col-12 d-flex">
-        <div class="col-4 bg-titulo-ayuda position-relative">
-          <h2 class="position-absolute top-50 start-50 translate-middle">ayuda</h2>
+        <div class="col-4 p-5 bg-titulo-ayuda position-relative">
+          <h2 class=" position-absolute top-50  start-50 translate-middle">Contactanos</h2>
         </div>
-        <div class="col-8 div-botones-ayuda">
-          <a class="col-6" href="{% url 'contacto_cliente' %}">Contacto</a>
-          <a class="col-6" href="{% url 'guia_tutorial' %}">Guias y tutoriales</a>
-          <a class="col-6" href="">facebook ig wsp</a>
 
+        <div class="col-8 div-botones-ayuda  mx-auto">
+          <a class="button-ayudaa" href="{% url 'contacto_cliente' %}">Contacto</a>
         </div>
       </div>
     </section>
@@ -369,7 +367,7 @@
       <div class="d-flex">
         <div class="div-texto-presentacion col-6">
           <h2 class="titulo-presentacion ps-5 py-2">Un poco de nosotros</h2>
-          <p class="col-11 ms-2 me-auto">encuentranos en  Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid optio odit vitae atque, consequatur labore exercitationem nihil sunt et accusantium magni dolorum in fugiat eveniet voluptates distinctio expedita. Voluptates, animi.</p>
+          <p class="col-11 ms-4 me-auto">encuentranos en  Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid optio odit vitae atque, consequatur labore exercitationem nihil sunt et accusantium magni dolorum in fugiat eveniet voluptates distinctio expedita. Voluptates, animi.</p>
         </div>
         <div class="col-6">
           <img src="{% static './images/tienda-pc-max.avif '%}" class="img-tienda-pcMax col-12 " alt="...">

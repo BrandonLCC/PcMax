@@ -123,6 +123,22 @@
  
 /* Fin navbar */
 
+.btn-comprar  {
+    position: relative;
+    background: linear-gradient(85deg, #44ff44,#44ff44, #fff200); 
+    color: var(--color-blanco);
+    text-decoration: none;
+    padding: 10px;
+    
+
+}
+
+button {
+    background: linear-gradient(85deg, #44ff44,#44ff44, #fff200); 
+
+
+}
+
 
 .carrito-lista {
     list-style-type: none;

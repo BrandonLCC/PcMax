@@ -9,78 +9,122 @@
     <title>PcMax</title>
     {% bootstrap_css %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'css/compra_producto-2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/compra_producto-3.css' %}">
     <link rel="icon" type="image/png" href="{% static 'images/logo-empresa.jpg' %}">
 
 </head>
 <body>
     <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div>
-      <a href="{% url 'home' %}"> 
-          <img src="{% static './images/logo-empresa.jpg' %}" class="logo-PcMax ms-3" alt="Logo Empresa"> 
-      </a>
-    </div>
-      <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" href="{% url 'inicio_sesion' %}">Iniciar sesión</a>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link active" href="{% url 'registro_cliente' %}">Registro</a>
-            </li>
-           
-            <li class="nav-item">
-              <a class="nav-link active" aria-disabled="true">Historial</a>
-            </li>
-            <!-- DROP CATEGORIAS-->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Categorias</a>
-              <ul class="dropdown-menu">
-                
-                <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria=1">Pc gamer</a></li> 
-                <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria=2">Laptop</a></li> 
-                <li><a class="dropdown-item" href="{% url 'lista_productos' %}?id_categoria=3">Celulares                <li><hr class="dropdown-divider"></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Todos los productos</a></li>
-              </ul>
-            </li>
-             <!-- DROP AYUDA -->
-             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Ayuda</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'contacto_cliente' %}">Contactanos</a></li>
-                <li><a class="dropdown-item" href="{% url 'guia_tutorial' %}">Guías y tutoriales</a></li>
-              </ul>
-            </li>
-            <form class="from-buscar d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Buscar un Producto" aria-label="Search">
-              <button class="btn btn-buscar" type="submit">Buscar</button>
-            </form>
-          </ul>
-        </div>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div>
+        <a href="{% url 'home' %}"> 
+            <img src="{% static './images/logo-empresa.jpg' %}" class="logo-PcMax ms-3" alt="Logo Empresa"> 
+        </a>
       </div>
-  </nav>
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <!--Link inicio sesion -->
+              <li class="nav-item me-2">
+                <a class="nav-link active" href="{% url 'inicio_sesion' %}">
+                  <i class="fas fa-user"></i>
+                  Iniciar sesión
+                </a>
+              </li>
+              <!--Link Registro -->
+              <li class="nav-item me-2">
+                <a class="nav-link active" href="{% url 'registro_cliente' %}">
+                  <i class="fas fa-user-plus"></i> 
+                  Registro
+                </a>
+              </li>
+              <!--Link Historial -->
+              <li class="nav-item me-2">
+                <a class="nav-link active" aria-disabled="true">
+                  <i class="fas fa-history"></i> 
+                  Historial
+                </a>
+              </li>
+              <!-- DROP CATEGORIAS-->
+              <li class="nav-item me-2 dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                  <i class="fas fa-list mx-auto"></i>
+                  Categorias
+                </a>
+                <!-- dropdown menu -->
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item py-2" href="{% url 'lista_productos' %}?id_categoria=1">
+                      <i class="fas fa-desktop mx-auto"></i>
+                      Pc gamer</a>
+                  </li> 
+                  <li>
+                    <a class="dropdown-item py-2" href="{% url 'lista_productos' %}?id_categoria=2">
+                      <i class="fas fa-laptop"></i>
+                      Laptop</a>
+                  </li> 
+                  <li>
+                    <a class="dropdown-item py-2" href="{% url 'lista_productos' %}?id_categoria=3">
+                      <i class="fas fa-mobile-alt"></i>
+                      Celulares</a>           
+                    <li>
+                    <hr class="dropdown-divider"></li>
+                  <li>
+                    <a class="dropdown-item py-2" href="{% url 'lista_productos' %}?id_categoria=0">
+                      <i class="fas fa-box-open mx-auto"></i>
+                        Todos los productos
+                    </a>
+                  </li>
+                </ul>
+              </li>
+               <!-- DROP AYUDA 
+               <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                  Ayuda
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{% url 'contacto_cliente' %}">Contactanos</a></li>
+                  <li><a class="dropdown-item" href="{% url 'guia_tutorial' %}">Guías y tutoriales</a></li>
+                </ul>
+              </li>-->
+              <!--Link carro compras -->
+              <li class="nav-item link-carro mx-1">
+                <a class="nav-link active  " href="{% url 'carro_compra' %}"">
+                  Carro
+                  <i class="fas fa-shopping-cart"></i> <!-- icon carro-->
+                </a>
+                
+              </li>
+    
+              <form class="from-buscar d-flex ms-2" method="get">
+                <input class="input-buscar-producto form-control me-2" placeholder="Busca un Producto" aria-label="Search">
+                <button class="btn btn-buscar px-3 py-2" type="submit">Buscar</button>
+              </form>
+            </ul>
+          </div>
+        </div>
+    </nav>
   <!-- Fin navbar-->
 
 <br>
-<div class="d-flex mx-4">
-  <div class="div-informacion-pago-total  col-6 ">
-    <h1 class="ms-2"> Informacion de pago</h1>
-    <h2 class="ms-2">Total a pagar: <span>CLP{{ total_carrito|currency }}</span></h2>
-    <h5 class="ms-2">Total en USD: <span>${{ valorFinalCarro}}</span></h5>
+<div class="div-informacion-pago-total d-flex mx-4">
+  <div class="col-6 ">
+    <div class="subdiv-informacion-pago-total ms-2 ps-2">
 
+   
+    <h1 class=""> Informacion de pago</h1>
+    <h2 class="">Total a pagar: <span>CLP{{ total_carrito|currency }}</span></h2>
+    <h5 class="">Total en USD: <span>${{ valorFinalCarro}}</span></h5>
+    </div>
   <br>
 
-  <div class=""> 
+  <div class="div-informacion-paypal my-2"> 
     {% for elemento in elementos %} 
-    <div class="lista-productos d-flex"> 
+    <div class="lista-productos mt-2 pt-1 d-flex"> 
         <img src="{{ elemento.producto.imagen_producto.url }}" class="card-img-top ms-4 productoIMG" alt="{{ elemento.producto.nombre_producto }}">
         <div class="ms-2">
           <p class="col-12">{{ elemento.producto.nombre_producto }}</p>

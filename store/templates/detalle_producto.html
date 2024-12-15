@@ -15,9 +15,9 @@
     {% load bootstrap5 %}
     {% bootstrap_css %}
    
-    <link rel="stylesheet" href="{% static 'css/detalles_productos-2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/detalles_productos-3.css' %}">
     <link rel="icon" type="image/png" href="{% static 'images/logo-empresa.jpg' %}">
-
+ 
 </head>
 <body>
 <!-- Navbar -->
@@ -116,63 +116,59 @@
 </nav>
 <!-- Fin NavBar-->
  
-    <div class="div-flujo-links-a">
-      <a class="flujo-link-a" href="{% url 'home' %}">&lt; Ir al Inicio</a>
-      <a class="flujo-link-a" href="{% url 'lista_productos' %}?id_categoria=">&lt;Todos los Productos</a>
-      <a class="flujo-link-a" href="{% url 'carro_compra' %}">&gt; Carro compras</a>
-    </div>
+  
+
 
     <div class="container con_detalle pt-5">
         <h1 class="my-4 text-center" >{{ producto.nombre }}</h1>
         <div class="d-flex">
-            <div class="div-img col-md-5">
+          <!-- DIV IMG -->
+            <div class="div-img col-5">
                <img src="{{ producto.imagen_producto.url }}" class=" card-img-top zoom" alt="{{ producto.nombre_producto }}">
               
             </div>
+          <!-- DIV detalles 1 -->
 
-            <div class="div-texto-padre-producto col-md-6 ">
-                <h1 class="titulo-producto" style="text-align: center;" >{{ producto.nombre_producto  }}</h1>
-               
-          <div class="detalle-producto mt-4">
-    <div class="precio-stock-container d-flex flex-column align-items-start">
-        <div class="precio-stock-item mb-2">
-            <h3 class="text-primary m-0">Precio <span class="fs-5 fw-bold text-success m-0"> $ {{ producto.precio_producto|currency }} </span></h3>
-            
-        </div>
-        <div class="precio-stock-item">
-            <h3 class="text-primary m-0">Stock  <span class="fs-5 fw-bold text-success m-0"> {{ producto.cantidad_producto }}</span></h3></h3>
-         <br>
-                
-            
-        </div>
-    </div>
-</div>    
-                <!-- Mostrar mensajes de error -->
+            <div class="div-texto-padre-producto col-7 ">
+                <h4 class="titulo-producto" style="text-align: center;" >Detalle producto</h4>
+              <div class="detalle-producto mt-4">
+                <div class="precio-stock-container ">
+                  <div class="precio-stock-item mb-2 mx-5">
+                    <h5 class="texto-detalle py-1 my-2">Producto: <span class="span-texto">{{ producto.nombre_producto }} </span></h5>
+                    <h5 class="texto-detalle py-1 my-2">Precio: <span class="span-texto"> ${{ producto.precio_producto|currency }} </span></h5>
+                    <h5 class="texto-detalle py-1 my-2">Stock: <span class="span-texto"> {{ producto.cantidad_producto }}</span></h5>
+                    <h5 class="texto-detalle py-1 my-2">Descripción: <span class="span-texto"> {{ producto.descripcion_producto }}</span></h5>
+
+
+                  </div>
+                </div>
+              </div> 
+
+              <div class="container d-flex flex-column align-items-end">
                 {% if messages %}
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger w-100" role="alert">
                     <ul>
                         {% for message in messages %}
-                        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-                            {% endfor %}
+                          <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                        {% endfor %}
                     </ul>
                 </div>
                 {% endif %}
-                <div class="div-medio-de-pago  bg-primary">
-                  <h6 style="text-align: center; color: rgb(255, 255, 255);">Medios de Pago</h6>
-                  <img width="1%"  src="{% static './images/metodo-de-pago.png'%}" class="img-pago col-12 " alt="...">
-
-                </div>
+              
                 <!-- Formulario para agregar al carrito -->
-                <form  action="{% url 'agregar_al_carrito' producto.id %}" method="post" class="mt-3 py-5">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-
-                    <button  type="submit" class="btn btn-primary">
-                      Agregar al Carro
-                      <i class="fas fa-shopping-cart"></i> <!-- icon carro-->
-                    </button>
-                </form>
-            </div>
+                <div class="w-100 d-flex justify-content-center">
+                    <form action="{% url 'agregar_al_carrito' producto.id %}" method="post" class="mt-3 py-5 text-center">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary">
+                            Agregar al Carro
+                            <i class="fas fa-shopping-cart"></i> <!-- icon carro -->
+                        </button>
+                    </form>
+                </div>
+                
+              </div>
+              
         </div>
     </div>
 
@@ -183,7 +179,7 @@
           
         
       </div>
-      <div class="card">
+      <div class=" mb-5 card col-11 mx-auto">
         <div class="card-header">
           <h3 class="">Descripción</h3>
         </div>

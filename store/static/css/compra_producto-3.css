@@ -1,14 +1,19 @@
 :root {
     /* Aqui  se definen los colores de la empresa PCmax */
     --color-blanco: #ffffff;
+    --color-gris-2:#fafafa ; 
+    --color-gris: #ffffff ;
     --color-1-empresa: #02ff02;
     --color-2-empresa: #000000;
+    --color-rojo: #ff0202;
 }
 
-.navbar {
-    background-color: var(--color-2-empresa);
-    width: 100%;
 
+.navbar {
+    width: 100%;
+    font-weight: 500;
+    z-index: 1;
+    background-color: var(--color-2-empresa);
 }
 
 .navbar-nav {
@@ -39,18 +44,37 @@
     border-radius: 10px;
     animation-delay: 2s;
     cursor: default;
+
 }
 
 .logo-PcMax {
     position: relative;
-    width: 82px;
-    height: 70px;
+    width: 78px;
+    height: 65px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+/* input */
+
+.input-buscar-producto {
+    outline: none;
+    color: #000000; 
+
+}
+.input-buscar-producto::placeholder {
+    color: var(--color-blanco);
+}
+
+.input-buscar-producto:focus{
+    outline: none; 
+    color: #000000; 
 }
 
 /* input */
 .form-control {
     margin-left: auto;
-    background-color: #15c01500;
+    background-color: #3636361d;
     border-color: var(--color-1-empresa);
     animation:  box-producto 5s ease forwards;
     animation-iteration-count: infinite;
@@ -62,7 +86,7 @@
         border-color: var(--color-1-empresa);
     }
     50% {
-        border-color: #000000;
+        border-color: #292929;
     }
     0% {
         border-color: var(--color-1-empresa);
@@ -71,50 +95,59 @@
 
 /* Boton buscar */
 .btn-buscar {
-    background: linear-gradient(85deg, #44ff44, #fff200); /* Doble color */
-    font-weight: 550;
+    position: relative;
+    background: linear-gradient(85deg, #44ff44,#44ff44, #fff200); 
+    font-weight: 650;
     color: var(--color-blanco);
-
+    padding: 2px
+    
 }
 
+
 .btn-buscar:hover {
+   background: linear-gradient(85deg,  #ffffff,#ffffff); 
    animation-duration: 2s;
-   color: #175317;
+   color: var(--color-1-empresa);
    z-index: 5;
 }
 
-/* fin navbar */
 
-/* link de Pcmax */
-.navbar-brand {
-    font-weight: 550;
-    color: var(--color-blanco);
+.link-carro {
+    background: linear-gradient(85deg, #44ff44, #44ff44); 
+    border-radius: 5px;
+}
+
+.link-carro:hover {
+    background: linear-gradient(85deg, #ffffff, #ffffff); 
+
+}
+ 
+/* Fin navbar */
+
+.div-informacion-pago-total {
+
+}
+.subdiv-informacion-pago-total {
+    
 
 }
 
-.nav-link:hover, .navbar-brand:hover {
-    background-color: #02ff020f;
-    color: var(--color-1-empresa);
+.lista-productos {
     border-radius: 10px;
-    animation-delay: 2s;
-    cursor: default;
+    margin-left: 10px;
+    background-color: var(--color-gris);
+    border: 1px solid #cacaca; 
 }
-
-.logo-PcMax {
-    position: relative;
-    width: 82px;
-    height: 70px;
-}
-
-
-/*FIN NAV*/
 
 .productoIMG {
     width: 100px;
     height: 100px;
 
 }
-
+ 
 .div-api-padre-paypal {
-    background-color: #eaeaea;
+    border-radius: 10px;
+    margin: 10px;
+    background-color: var(--color-gris);
+    border: 1px solid #cacaca;
 }
