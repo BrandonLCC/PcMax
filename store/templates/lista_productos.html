@@ -16,9 +16,9 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'css/lista_producto-4.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lista_producto-6.css' %}">
     <link rel="icon" type="image/png" href="{% static 'images/logo-empresa.jpg' %}">
-
+ 
 </head>
 <body>
 <!-- Navbar -->
@@ -119,12 +119,10 @@
 
 
 
-<section class="col-12 mx-auto">
   <div class="col-12 mx-auto">
 
     
     <div class="col-11 mx-auto mt-5 div-img-lista-productos">
-       
       <img src="{{ categoria.imagen_categoria.url }}" class="ms-auto primera-imagen-list" alt="">
       <div class="col-11 div-titulo-1  ms-auto">
         {% if categoria %}
@@ -143,8 +141,13 @@
     
     
   </div>
-  <h2 class="titulo-producto col-11 mx-auto mt-5  pb-1">Nuestros productos en {{ categoria.nombre_categoria }}</h2>
-  <p class="subtitulo-producto py-1 ps-5">Hechale un nuevo visto a los productos de tu interes</p>
+</section>
+<hr class="col-0">
+<div class="col-12 mx-auto">
+  <h2 class="titulo-producto col-11 mx-auto mt-5  py-2 ps-5">
+    <i class="fas fa-box-open mx-auto"></i>
+    Nuestros productos en {{ categoria.nombre_categoria }}</h2>
+  <p class="subtitulo-producto col-11 mx-auto py-1 ps-5">Hechale un nuevo visto a los productos de tu interes</p>
   
     <!-- Productos -->
     <div class="container">

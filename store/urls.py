@@ -28,5 +28,6 @@ urlpatterns = [
     path('contactos/',views.contacto_lista, name='contacto_lista'),
     path('contacto_confirmacion/', views.contacto_confirmacion, name='contacto_confirmacion'),
     path('favorito/<int:producto_id>/', views.guardar_favorito, name='guardar_favorito'),
+    path('historial/', views.historialCompras.as_view(), name='historialCompras'),  # Utiliza la vista directamente desde views.py
 
    ]

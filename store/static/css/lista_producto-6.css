@@ -146,6 +146,8 @@
     font-size: 60px;
     box-shadow: 0px 0px 10px black;
     z-index: 2;
+    
+    
 }
 
 
@@ -172,14 +174,18 @@
    background-color: var(--color-2-empresa);
     color: var(--color-blanco);
     margin: 0;
-   
-
+    position: relative;
+    background-color: var(--color-2-empresa);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin: 0;
+ 
 }
 
 
 .subtitulo-producto{
-   /* background: linear-gradient(85deg, #44ff44, #fff200); 
-*/
+   background: linear-gradient(85deg, #44ff44, #fff200); 
+
 }
 
 .card {

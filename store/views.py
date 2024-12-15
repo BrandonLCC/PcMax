@@ -15,6 +15,9 @@ from .functions import *
 from .models import Ventas
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
+from django.shortcuts import get_object_or_404
+from django.db import transaction
+from .models import DetalleVentas
 # Creacion de  las vistas 
 
 def home(request):
@@ -28,9 +31,6 @@ def home(request):
         estado = 'false'
 
     return render(request, 'index.html' ,{'productos': productos,'estado':estado})
-
-  
-
 
 #Permite mostrar todos los datos usando ORM de forma mas facil: object.all
 #Tambien podemos crear views con SQL crudo por ejmplo: select * from
@@ -79,23 +79,18 @@ def agregar_al_carrito(request, producto_id):
         if form.is_valid():
             cantidad = form.cleaned_data['cantidad']
 
-            # Verifica que la cantidad solicitada no exceda el stock disponible
-            if cantidad > productos.cantidad_producto:  # Asegúrate de que sea 'cantidad_producto'
+            if cantidad > productos.cantidad_producto:  
                 form.add_error('cantidad', 'La cantidad solicitada excede el stock disponible.')
             else:
-                # Crea o actualiza el elemento en el carrito
                 elemento, creado = ElementoCarrito.objects.get_or_create(carrito=carrito, producto=productos)
 
-                # Actualiza la cantidad en el carrito
                 if not creado:
                     elemento.cantidad += cantidad
                 else:
                     elemento.cantidad = cantidad
 
-                # Guarda el elemento del carrito
                 elemento.save()
 
-                # Actualiza el stock del producto
                 productos.cantidad_producto -= cantidad
                 productos.save()
 
@@ -118,7 +113,6 @@ def carro_compra(request):
     descuento_aplicado = 0
     total_carrito_con_descuento = total_carrito
 
-    # Verificar si se ha enviado un código de descuento
     if request.method == 'POST':
         codigo_descuento = request.POST.get('codigo_descuento', '').strip()
         if codigo_descuento == 'DESCUENTO10':  
@@ -128,7 +122,6 @@ def carro_compra(request):
             descuento_aplicado = 20  
             total_carrito_con_descuento = total_carrito - (total_carrito * descuento_aplicado / 100)
 
-    # Guardar los valores en la sesión para usarlos en otras vistas
     request.session['descuento_aplicado'] = descuento_aplicado
     request.session['total_carrito_con_descuento'] = total_carrito_con_descuento
 
@@ -154,7 +147,6 @@ def modificar_cantidad_carrito(request, elemento_id):
         if form.is_valid():
             cantidad = form.cleaned_data['cantidad']
 
-            # Verifica que la cantidad solicitada no exceda el stock disponible
             if cantidad > elemento.producto.cantidad_producto:
                 messages.error(request, 'La cantidad solicitada excede el stock disponible.')
             else:
@@ -213,6 +205,7 @@ class CrearOrden(APIView):
     def post(self, request):
         orden = crearOrden(valorFinalCarro) 
         guardar_venta(valorFinalCarro,request)
+        detalle_ventas(request)
         return Response(orden, status=status.HTTP_200_OK)
 
 def crearOrden(valorFinalCarro):
@@ -247,17 +240,19 @@ def guardar_venta(total_venta, request):
 
     try:
         if not total_venta:
-            raise ValueError("El valor de 'total_venta' es obligatorio.")
+            raise ValueError("total_venta es obligatorio.")
         
-        usuario = Usuario.objects.get(gmail_usuario=request.user.email)  # Ajusta según tu lógica
+        usuario = Usuario.objects.get(gmail_usuario=request.user.email)  
         
         venta = Ventas.objects.create(
             total_venta=total_venta,
             id_usuario_id=usuario.id  
         )
-
         print("Venta creada:", venta)
         return venta
+    
+
+
 
     except ValueError as ve:
         print(f"ValorError: {ve}")
@@ -265,6 +260,89 @@ def guardar_venta(total_venta, request):
     except Exception as e:
         print(f"Error al guardar la venta: {e}")
         return None
+
+def detalle_ventas(request):
+    try:
+        carrito = get_object_or_404(Carrito, usuario=request.user)
+        elementos = ElementoCarrito.objects.filter(carrito=carrito)
+
+        if not elementos.exists():
+            raise ValueError("El carrito está vacío.")
+
+        usuario = Usuario.objects.get(gmail_usuario=request.user.email)  
+
+        venta = Ventas.objects.filter(id_usuario=usuario).order_by('-id_venta').first()
+
+        if not venta:
+            raise ValueError("No se encontró ninguna venta asociada al usuario.")
+
+        with transaction.atomic():
+            detalles_venta = []
+
+            for elemento in elementos:
+
+                producto = elemento.producto
+                cantidad = elemento.cantidad
+                precio = producto.precio_producto  
+                subtotal = cantidad * precio  
+
+                detalle = DetalleVentas.objects.create(
+                    id_producto=producto,
+                    id_venta=venta, 
+                    cantidad_producto=cantidad,
+                    precio_producto=precio,
+                    subtotal=subtotal
+                )
+                detalles_venta.append(detalle)
+
+            elementos.delete()  
+            
+        return {
+            "venta_id": venta.id,
+            "detalles": detalles_venta,
+        }
+
+    except ValueError as ve:
+        print(f"Error: {ve}")
+        return None
+    except Exception as e:
+        print(f"Error al crear detalles de venta: {e}")
+        return None
+    
+class historialCompras(APIView):
+    def get(self, request):
+        try:
+            # Obtener el usuario autenticado
+            usuario = get_object_or_404(Usuario, gmail_usuario=request.user.email)
+
+            # Obtener las ventas del usuario
+            ventas = Ventas.objects.filter(id_usuario=usuario)
+
+            productos_comprados = []
+
+            # Iterar sobre cada venta para obtener los detalles
+            for venta in ventas:
+                detalles_venta = DetalleVentas.objects.filter(id_venta=venta)
+
+                for detalle in detalles_venta:
+                    producto = detalle.id_producto  # Obtenemos el objeto Producto completo
+                    productos_comprados.append({
+                        'venta_id': venta.id_venta,
+                        'producto_nombre': producto.nombre_producto,
+                        'cantidad': detalle.cantidad_producto,
+                        'precio': detalle.precio_producto,
+                        'subtotal': detalle.subtotal,
+                    })
+
+            return render(request, 'historial.html', {'productos_comprados': productos_comprados})
+
+
+        except Usuario.DoesNotExist:
+            return Response({"error": "Usuario no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+
 
 def registrar_usuario(request):
    

@@ -11,7 +11,7 @@ class Comunas(models.Model):
     id_region = models.OneToOneField(Regiones, on_delete = models.CASCADE)
     
 class Almacenes(models.Model):
-    id_almacen = models.IntegerField(primary_key=True) # Agregar primary_key=True si es el identificador principal    nombre_almacen = models.CharField(max_length=50)
+    id_almacen = models.IntegerField(primary_key=True) 
     nombre_almacen = models.CharField(max_length=50)
     direccion_almacen = models.TextField(max_length=100)
     id_comuna = models.ForeignKey(Comunas, on_delete = models.CASCADE) #models.CharField(max_length=2)
@@ -48,7 +48,6 @@ class Usuario(models.Model):
     gmail_usuario = models.EmailField(max_length=50, )
     #Encriptar la contraseña    
     contraseña_usuario = models.CharField(max_length=500)
-    #id_comuna = models.OneToOneField(Comunas, on_delete=models.CASCADE)
      
     def __str__(self): 
         return self.nombre_usuario
@@ -57,7 +56,6 @@ class Ventas(models.Model):
     id_venta = models.AutoField(primary_key=True)
     fecha_venta = models.DateTimeField(auto_now_add=True)
     total_venta = models.IntegerField()
-    #Falta
     id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
 class DetalleVentas(models.Model):
@@ -82,7 +80,7 @@ class Contacto(models.Model):
 
 #Modelos del carro de compras
 class Carrito(models.Model):
-    usuario = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)  # Permitir nulos
+    usuario = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)  
     productos = models.ManyToManyField(Producto, through='CarritoProducto')
 
     def __str__(self):
