@@ -3,6 +3,8 @@
     --color-blanco: #ffffff;
     --color-1-empresa: #02ff02;
     --color-2-empresa: #000000;
+    --color-gris-2:#fafafa ; 
+    --color-gris: #515151;
 }
 
 .navbar {
@@ -153,11 +155,17 @@
 
 
 .div-flujo-links-a {
+    background: linear-gradient(85deg, #44ff44,#44ff44, #fff200); 
+
+}
+
+.flujo-link-a-div-2 {
     background-color: var(--color-2-empresa);
+
 }
 
 .flujo-link-a {
-    color: var(--color-1-empresa);
+    color: var(--color-blanco);
     font-weight: 550;
 
 }
@@ -167,7 +175,23 @@
     
 }
 
+
+/*card */
+
+.card:hover {
+    transform: translateY(-10px); 
+    transition: all 1s ease; 
+
+}
  
+
+/* PRODUCTOS */
+.seccion-productos {
+    position: relative;
+    border-radius: 10px;
+    background-color: var(--color-gris-2);
+    border: 1px solid #cacaca;
+}
 
 /* Card de los productos */
 .titulo-producto {

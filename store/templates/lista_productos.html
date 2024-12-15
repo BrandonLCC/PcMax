@@ -16,7 +16,7 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'css/lista_producto-6.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lista_producto-7.css' %}">
     <link rel="icon" type="image/png" href="{% static 'images/logo-empresa.jpg' %}">
  
 </head>
@@ -117,11 +117,16 @@
   </nav>
 <!-- Fin NavBar-->
 
+<div class="col-11 mx-auto my-5 div-flujo-links-a py-2">
+  <div class="flujo-link-a-div-2 p-2  mx-2">
+    <a class="flujo-link-a ms-4" href="{% url 'home' %}">&lt; Ir al Inicio</a>
+    <a class="flujo-link-a mx-4" href="{% url 'carro_compra' %}"> Carro compras &gt;</a>
+  </div>
+  
+</div>
 
-
+<section>
   <div class="col-12 mx-auto">
-
-    
     <div class="col-11 mx-auto mt-5 div-img-lista-productos">
       <img src="{{ categoria.imagen_categoria.url }}" class="ms-auto primera-imagen-list" alt="">
       <div class="col-11 div-titulo-1  ms-auto">
@@ -130,27 +135,22 @@
         {% endif %} 
       </div>
     </div>
-    
-
-
-    <div class="col-11 mx-auto div-flujo-links-a py-3">
-      <a class="flujo-link-a" href="{% url 'home' %}">&lt; Ir al Inicio</a>
-      <a class="flujo-link-a" href="{% url 'lista_productos' %}?id_categoria=">&lt;Todos los Productos</a>
-      <a class="flujo-link-a" href="{% url 'carro_compra' %}">&gt; Carro compras</a>
-    </div>
-    
-    
   </div>
-</section>
-<hr class="col-0">
-<div class="col-12 mx-auto">
-  <h2 class="titulo-producto col-11 mx-auto mt-5  py-2 ps-5">
+</section> 
+
+
+
+<section class="my-5">
+<div class=" seccion-productos mt-5 m col-11 mx-auto">
+  <h2 class="titulo-producto col-12 mx-auto   py-2 ps-5">
     <i class="fas fa-box-open mx-auto"></i>
-    Nuestros productos en {{ categoria.nombre_categoria }}</h2>
-  <p class="subtitulo-producto col-11 mx-auto py-1 ps-5">Hechale un nuevo visto a los productos de tu interes</p>
+    Nuestros productos en {{ categoria.nombre_categoria }}
+    
+  </h2>
+  <p class="subtitulo-producto col-12 mx-auto py-1 ps-5">Hechale un nuevo visto a los productos de tu interes</p>
   
     <!-- Productos -->
-    <div class="container">
+    <div class="mx-auto col-11">
 
         <div class="row">
             {% for producto in productos %}
@@ -166,14 +166,11 @@
                         <p class="card-text text-center">${{ producto.precio_producto|currency }}</p>
                         <p class="stock-productos card-text col-6 mx-auto text-center py-1"><b class="text-unidades">Unidades: </b>{{ producto.cantidad_producto }}</p>
                         <div class="div-boton mx-auto">
-                            <a class="btn-link-a px-5" href="{% url 'detalle_producto' producto.id %}">Ir al carro</a>
-                            <!-- Boton guardar como favorito -->
-                            <form method="post" action="{% url 'guardar_favorito' producto.id %}">
-                              {% csrf_token %}
-                              <button type="submit" class="btn-fav-producto">
-                                  <i class="fa fa-heart"></i> <!-- Ícono de corazón -->
-                              </button>
-                          </form>
+                            <a class="btn-link-a px-5 col-11 mx-auto" href="{% url 'detalle_producto' producto.id %}">Ir al carro
+                              <i class="fas fa-shopping-cart"></i> <!-- icon carro-->
+
+                            </a>
+                           
                         </div>
                     </div>
                 </div>
@@ -181,9 +178,12 @@
             {% endfor %}
         </div>
     </div>
-    
+  </div>
+
 </section>
 
 </body>
+
+
 
 </html>

@@ -295,7 +295,7 @@ def detalle_ventas(request):
                 )
                 detalles_venta.append(detalle)
 
-            elementos.delete()  
+            #elementos.delete()  
             
         return {
             "venta_id": venta.id,

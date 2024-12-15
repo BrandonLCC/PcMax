@@ -14,11 +14,35 @@
 </head>
 <body>
  
-        <!--DIV 2-->
-        <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
-        </div>
- 
+    <section class="my-5">
+        <div class=" seccion-productos mt-5 m col-11 mx-auto">
+            <!-- Productos -->
+            <div class="mx-auto col-11">
+                <div class="row">
+                    {% for producto in productos_comprados %}
+                    <div class="col-md-3">
+                        <div class="card">
+                            {% if producto.imagen_producto %}
+                            <img src="{{ producto.imagen_producto.url }}" class="card-img-top" alt="{{ producto.nombre_producto }}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title text-center pb-1">{{ producto.producto_nombre }}</h5>
+                                <p class="card-text text-center">{{ producto.descripcion_producto|truncatechars:46 }}</p>
+                                <p class="card-text text-center">${{ producto.precio}}</p>
+                                <p class="stock-productos card-text col-6 mx-auto text-center py-1"><b class="text-unidades">Unidades: </b>{{ producto.cantidad }}</p>
+                                <p class="card-text text-center">${{ producto.subtotal}}</p>
 
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+          </div>
+
+        
+        </section>
+        
 </body>
 </html>
 
