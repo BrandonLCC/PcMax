@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
 
 class Regiones(models.Model):
     id_region = models.IntegerField(primary_key=True)
@@ -45,12 +46,14 @@ class Producto(models.Model):
 
 class Usuario(models.Model):
     nombre_usuario = models.CharField(max_length=100)
-    gmail_usuario = models.EmailField(max_length=50, )
-    #Encriptar la contraseña    
+    gmail_usuario = models.EmailField(max_length=50)
     contraseña_usuario = models.CharField(max_length=500)
-     
-    def __str__(self): 
-        return self.nombre_usuario
+
+    def save(self, *args, **kwargs):
+        # Encriptar la contraseña si no está encriptada
+        if not self.pk or 'contraseña_usuario' in self.get_dirty_fields():
+            self.contraseña_usuario = make_password(self.contraseña_usuario)
+        super().save(*args, **kwargs)
  
 class Ventas(models.Model):
     id_venta = models.AutoField(primary_key=True)
